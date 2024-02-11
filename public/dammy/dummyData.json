@@ -1,0 +1,191 @@
+{
+  "aaaaa": {
+    "event_id": "aaaaa",
+    "create_date": "2024-02-12T08:30:00.000Z",
+    "last_update_date": "2024-02-12T12:45:00.000Z",
+    "select_date": [
+      "2024-02-15T00:00:00.000Z",
+      "2024-02-16T00:00:00.000Z",
+      "2024-02-17T00:00:00.000Z"
+    ],
+    "start_time": "09:00",
+    "end_time": "17:00",
+    "uncommon_date": [
+      {
+        "date": "2024-02-17T00:00:00.000Z",
+        "start_time": "10:00",
+        "end_time": "16:00"
+      }
+    ],
+    "scheduling_data": [
+      {
+        "schedule_id": "aaaaa-0001",
+        "user_name": "John",
+        "schedule": [
+          {
+            "date": "2024-02-15T00:00:00.000Z",
+            "state": 0,
+            "times": [{ "start": "09:00", "end": "17:00" }]
+          },
+          {
+            "date": "2024-02-16T00:00:00.000Z",
+            "state": 1,
+            "times": [
+              { "start": "10:00", "end": "12:00" },
+              { "start": "13:00", "end": "15:00" }
+            ]
+          },
+          {
+            "date": "2024-02-17T00:00:00.000Z",
+            "state": 2,
+            "times": []
+          }
+        ],
+        "memo": "I'm busy in the afternoon on the 16th."
+      },
+      {
+        "schedule_id": "aaaaa-0002",
+        "user_name": "kate",
+        "schedule": [
+          {
+            "date": "2024-02-15T00:00:00.000Z",
+            "state": 0,
+            "times": [{ "start": "09:00", "end": "17:00" }]
+          },
+          {
+            "date": "2024-02-16T00:00:00.000Z",
+            "state": 2,
+            "times": []
+          },
+          {
+            "date": "2024-02-17T00:00:00.000Z",
+            "state": 0,
+            "times": [{ "start": "10:00", "end": "16:00" }]
+          }
+        ],
+        "memo": "I'm busy in the afternoon on the 16th."
+      }
+    ],
+    "url": "http://example.com/event/aaaaa"
+  },
+  "bbbbb": {
+    "event_id": "bbbbb",
+    "create_date": "2024-02-10T10:00:00.000Z",
+    "last_update_date": "2024-02-10T14:30:00.000Z",
+    "select_date": [
+      "2024-02-12T00:00:00.000Z",
+      "2024-02-13T00:00:00.000Z",
+      "2024-02-14T00:00:00.000Z"
+    ],
+    "start_time": "08:00",
+    "end_time": "16:00",
+    "uncommon_date": [],
+    "scheduling_data": [
+      {
+        "schedule_id": "bbbbb-0001",
+        "user_name": "Emily",
+        "schedule": [
+          {
+            "date": "2024-02-12T00:00:00.000Z",
+            "state": 2,
+            "times": []
+          },
+          {
+            "date": "2024-02-13T00:00:00.000Z",
+            "state": 0,
+            "times": [{ "start": "8:00", "end": "16:00" }]
+          },
+          {
+            "date": "2024-02-14T00:00:00.000Z",
+            "state": 1,
+            "times": [{ "start": "12:00", "end": "14:00" }]
+          }
+        ],
+        "memo": "Morning works."
+      },
+      {
+        "schedule_id": "bbbbb-0002",
+        "user_name": "tommy",
+        "schedule": [
+          {
+            "date": "2024-02-12T00:00:00.000Z",
+            "state": 2,
+            "times": []
+          },
+          {
+            "date": "2024-02-13T00:00:00.000Z",
+            "state": 2,
+            "times": []
+          },
+          {
+            "date": "2024-02-14T00:00:00.000Z",
+            "state": 1,
+            "times": [{ "start": "12:00", "end": "14:00" }]
+          }
+        ],
+        "memo": "Afternoon is perfect."
+      }
+    ],
+    "url": "http://example.com/event/bbbbb"
+  },
+  "ccccc": {
+    "event_id": "ccccc",
+    "create_date": "2024-02-08T09:15:00.000Z",
+    "last_update_date": "2024-02-08T15:20:00.000Z",
+    "select_date": [
+      "2024-02-10T00:00:00.000Z",
+      "2024-02-11T00:00:00.000Z",
+      "2024-02-12T00:00:00.000Z"
+    ],
+    "start_time": "10:00",
+    "end_time": "18:00",
+    "uncommon_date": [],
+    "scheduling_data": [
+      {
+        "schedule_id": "ccccc-0001",
+        "user_name": "Alice",
+        "schedule": [
+          {
+            "date": "2024-02-10T00:00:00.000Z",
+            "state": 1,
+            "times": [{ "start": "12:00", "end": "14:00" }]
+          },
+          {
+            "date": "2024-02-11T00:00:00.000Z",
+            "state": 0,
+            "times": [{ "start": "11:00", "end": "13:00" }]
+          },
+          {
+            "date": "2024-02-12T00:00:00.000Z",
+            "state": 2,
+            "times": []
+          }
+        ],
+        "memo": "Only available in the afternoon."
+      },
+      {
+        "schedule_id": "ccccc-0002",
+        "user_name": "bob",
+        "schedule": [
+          {
+            "date": "2024-02-10T00:00:00.000Z",
+            "state": 1,
+            "times": [{ "start": "12:00", "end": "14:00" }]
+          },
+          {
+            "date": "2024-02-11T00:00:00.000Z",
+            "state": 0,
+            "times": [{ "start": "11:00", "end": "13:00" }]
+          },
+          {
+            "date": "2024-02-12T00:00:00.000Z",
+            "state": 2,
+            "times": []
+          }
+        ],
+        "memo": "Morning is perfect."
+      }
+    ],
+    "url": "http://example.com/event/ccccc"
+  }
+}
