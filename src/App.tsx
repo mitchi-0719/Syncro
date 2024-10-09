@@ -1,19 +1,18 @@
-import { useRoutes } from "react-router-dom";
 import { Footer } from "./components/common/Footer";
 import { Header } from "./components/common/Header";
-import routes from "./Routes";
 import { Box } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Provider } from "./provider/Provider";
+import { Router } from "./Router";
 
 const App = () => {
-  const routing = useRoutes(routes);
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <Provider>
       <Header />
-      <Box component="main">{routing}</Box>
+      <Box component="main">
+        <Router />
+      </Box>
       <Footer />
-    </LocalizationProvider>
+    </Provider>
   );
 };
 
