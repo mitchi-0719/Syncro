@@ -1,38 +1,23 @@
-type N = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0; // 数字型
-type Time = `${"0" | "1" | "2"}${N}:${N}${N}`; // hh:mm形式の文字列型
+export type UserScheduleType = {
+  userId: string;
+  userName: string;
+  schedule: { date: string; status: number; start?: string; end?: string }[];
+}[];
 
-interface SchedulingData {
-  schedule_id: string;
-  user_name: string; // (10文字以内)
-  schedule: Schedule[];
-  memo: string; // (100文字以内)
-}
+export type SelectDateType = { date: string; hostComment?: string };
 
-interface Schedule {
-  date: Date;
-  state: 0 | 1 | 2;
-  times: TimeRange[];
-}
+export type EventType = {
+  eventId: string;
+  eventTitle: string;
+  eventDescription: string;
+  startTime: string;
+  endTime: string;
+  createDate: string;
+  lastUpdateDate: string;
+};
 
-interface TimeRange {
-  start: Time;
-  end: Time;
-}
-
-interface UncommonDate {
-  date: Date;
-  start_time: Time;
-  end_time: Time;
-}
-
-export interface Event {
-  event_id: string;
-  create_date: Date;
-  last_update_date: Date;
-  select_date: Date[];
-  start_time: Time;
-  end_time: Time;
-  uncommon_date: UncommonDate[];
-  scheduling_data: SchedulingData[];
-  url: string;
-}
+export type EventDataType = {
+  eventData: EventType;
+  selectDate: SelectDateType[];
+  userSchedule: UserScheduleType;
+};
