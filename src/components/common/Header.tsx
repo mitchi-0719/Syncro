@@ -1,11 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { AppBar, Typography } from "@mui/material";
 
 export const Header = () => {
   return (
-    <Box component="header" py={2}>
-      <Typography variant="h1" align="center" sx={{ fontSize: "2rem" }}>
-        Header
+    <AppBar
+      position="static"
+      color="primary"
+      sx={{ padding: 2, marginBottom: 1 }}
+    >
+      <Typography variant="h1" sx={{ fontSize: "2rem" }}>
+        Syncro
       </Typography>
-    </Box>
+    </AppBar>
   );
 };

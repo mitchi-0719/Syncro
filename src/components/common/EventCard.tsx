@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 
 type EventCardProp = {
-  title: string;
-  description: string;
+  eventTitle: string;
+  eventDescription: string;
   createDate: string;
   lastUpdateDate: string;
   writeCount: number;
@@ -18,8 +18,8 @@ type EventCardProp = {
 };
 
 export const EventCard = ({
-  title,
-  description,
+  eventTitle,
+  eventDescription,
   createDate,
   lastUpdateDate,
   writeCount,
@@ -27,7 +27,7 @@ export const EventCard = ({
 }: EventCardProp) => {
   return (
     <Card sx={{ m: 1 }}>
-      <CardHeader title={title} subheader={description} />
+      <CardHeader title={eventTitle} subheader={eventDescription} />
       <CardContent>
         <Box display="flex" justifyContent="space-between">
           <Box>

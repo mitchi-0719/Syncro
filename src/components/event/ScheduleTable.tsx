@@ -9,7 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { convertDate } from "../../features/date/convertDate";
+import { convertDate } from "../../function/convertDate";
 import { ChangeHistory, Clear, PanoramaFishEye } from "@mui/icons-material";
 import { EventDataType } from "../../types/eventDataType";
 

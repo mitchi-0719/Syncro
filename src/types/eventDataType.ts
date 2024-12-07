@@ -1,8 +1,15 @@
+export type ScheduleDataType = {
+  date: string;
+  status: number;
+  start?: string;
+  end?: string;
+};
+
 export type UserScheduleType = {
   userId: string;
   userName: string;
-  schedule: { date: string; status: number; start?: string; end?: string }[];
-}[];
+  schedule: ScheduleDataType[];
+};
 
 export type SelectDateType = { date: string; hostComment?: string };
 
@@ -19,5 +26,5 @@ export type EventType = {
 export type EventDataType = {
   eventData: EventType;
   selectDate: SelectDateType[];
-  userSchedule: UserScheduleType;
+  userSchedule: UserScheduleType[];
 };

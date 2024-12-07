@@ -1,17 +1,18 @@
-import { Footer } from "./components/common/Footer";
-import { Header } from "./components/common/Header";
 import { Box } from "@mui/material";
 import { Provider } from "./provider/Provider";
 import { Router } from "./Router";
+import { Footer, Header } from "./components/common";
 
 const App = () => {
   return (
     <Provider>
-      <Header />
-      <Box component="main">
-        <Router />
+      <Box display="flex" flexDirection="column" minHeight="100vh">
+        <Header />
+        <Box component="main" flex={1} marginX="10%" marginY={4}>
+          <Router />
+        </Box>
+        <Footer />
       </Box>
-      <Footer />
     </Provider>
   );
 };
