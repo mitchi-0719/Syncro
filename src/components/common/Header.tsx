@@ -7,7 +7,17 @@ export const Header = () => {
       color="primary"
       sx={{ padding: 2, marginBottom: 1 }}
     >
-      <Typography variant="h1" sx={{ fontSize: "2rem" }}>
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: "2rem",
+          fontFamily: '"Agu Display", serif',
+          fontOpticalSizing: "auto",
+          fontWeight: 400,
+          fontStyle: "normal",
+          fontVariationSettings: '"MORF" 10',
+        }}
+      >
         Syncro
       </Typography>
     </AppBar>
