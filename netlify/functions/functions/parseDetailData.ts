@@ -5,7 +5,7 @@ import {
 } from "../util/isNullOrUndefined";
 
 export const parseDetailData = (data: EventDetail[]) => {
-  const eventData = {
+  const event = {
     event_id: data[0].event_id,
     title: data[0].title,
     description: data[0].description,
@@ -15,15 +15,15 @@ export const parseDetailData = (data: EventDetail[]) => {
     default_end_time: data[0].default_end_time,
   };
 
-  const dateData = {};
-  const userData = {};
-  const scheduleData = {};
+  const date = {};
+  const user = {};
+  const schedule = {};
   data.forEach((d) => {
     if (
       isNotNullOrUndefined(d.event_date) &&
-      isNullOrUndefined(dateData[d.event_date])
+      isNullOrUndefined(date[d.event_date])
     ) {
-      dateData[d.event_date] = {
+      date[d.event_date] = {
         event_date: d.event_date,
         start_time: d.start_time,
         end_time: d.end_time,
@@ -31,11 +31,8 @@ export const parseDetailData = (data: EventDetail[]) => {
       };
     }
 
-    if (
-      isNotNullOrUndefined(d.user_id) &&
-      isNullOrUndefined(userData[d.user_id])
-    ) {
-      userData[d.user_id] = {
+    if (isNotNullOrUndefined(d.user_id) && isNullOrUndefined(user[d.user_id])) {
+      user[d.user_id] = {
         user_id: d.user_id,
         user_name: d.user_name,
         user_memo: d.user_memo,
@@ -43,8 +40,8 @@ export const parseDetailData = (data: EventDetail[]) => {
     }
 
     if (isNotNullOrUndefined(d.schedule_id)) {
-      if (isNullOrUndefined(scheduleData[d.schedule_id])) {
-        scheduleData[d.schedule_id] = {
+      if (isNullOrUndefined(schedule[d.schedule_id])) {
+        schedule[d.schedule_id] = {
           schedule_id: d.schedule_id,
           event_date: d.event_date,
           user_id: d.user_id,
@@ -59,7 +56,7 @@ export const parseDetailData = (data: EventDetail[]) => {
           ],
         };
       } else {
-        scheduleData[d.schedule_id].schedule_time.push({
+        schedule[d.schedule_id].schedule_time.push({
           schedule_time_id: d.schedule_time_id,
           schedule_start_time: d.schedule_start_time,
           schedule_end_time: d.schedule_end_time,
@@ -69,9 +66,9 @@ export const parseDetailData = (data: EventDetail[]) => {
   });
 
   return {
-    eventData,
-    dateData: Object.values(dateData),
-    userData,
-    scheduleData,
+    event,
+    date: Object.values(date),
+    user: Object.values(user),
+    schedule: Object.values(schedule),
   };
 };
