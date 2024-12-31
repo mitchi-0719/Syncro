@@ -1,62 +1,45 @@
-// type ScheduleTableProps = {
-//   data: EventDataType;
-// };
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import { eventDetailType } from "../../types/eventDataType";
+import { convertDate } from "../../function/convertDate";
+import { ScheduleTableRow } from "./ScheduleTableRow";
 
-export const ScheduleTable = (/*{ data }: ScheduleTableProps*/) => {
-  // return (
-  //   <TableContainer component={Paper}>
-  //     <Table>
-  //       <TableHead>
-  //         <TableRow>
-  //           <TableCell />
-  //           {data.selectDate.map((date) => (
-  //             <TableCell key={date.date}>{convertDate(date.date)}</TableCell>
-  //           ))}
-  //         </TableRow>
-  //       </TableHead>
-  //       <TableBody>
-  //         {data.userSchedule.map((userData) => (
-  //           <TableRow key={userData.userId}>
-  //             <TableCell>{userData.userName}</TableCell>
-  //             {data.selectDate.map((date) => {
-  //               const schedule = userData.schedule.find(
-  //                 (s) => s.date === date.date
-  //               );
-  //               if (!schedule) {
-  //                 return <TableCell />;
-  //               }
-  //               if (schedule.status === 0) {
-  //                 return (
-  //                   <TableCell>
-  //                     <PanoramaFishEye />
-  //                   </TableCell>
-  //                 );
-  //               }
-  //               if (schedule.status === 1) {
-  //                 return (
-  //                   <TableCell>
-  //                     <Box display="flex">
-  //                       <ChangeHistory />
-  //                       <Typography>
-  //                         {schedule.start}〜{schedule.end}
-  //                       </Typography>
-  //                     </Box>
-  //                   </TableCell>
-  //                 );
-  //               }
-  //               if (schedule.status === 2) {
-  //                 return (
-  //                   <TableCell>
-  //                     <Clear />
-  //                   </TableCell>
-  //                 );
-  //               }
-  //               return <TableCell />;
-  //             })}
-  //           </TableRow>
-  //         ))}
-  //       </TableBody>
-  //     </Table>
-  //   </TableContainer>
-  // );
+export const ScheduleTable = ({ data }: { data: eventDetailType }) => {
+  const { dates, users, schedules } = data;
+  return (
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow sx={{ borderBottom: 3, borderColor: "grey.300" }}>
+            <TableCell sx={{ borderRight: 3, borderColor: "grey.300" }} />
+            {dates.map((date) => (
+              <TableCell
+                key={date.event_date}
+                sx={{ borderLeft: 1, borderRight: 1, borderColor: "grey.300" }}
+              >
+                {convertDate(date.event_date)}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users.map((user) => (
+            <ScheduleTableRow
+              key={user.user_id}
+              dates={dates}
+              user={user}
+              schedules={schedules}
+            />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 };

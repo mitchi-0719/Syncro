@@ -31,7 +31,6 @@ export const getDetail = async (event_id: string) => {
     }
 
     const results = parseDetailData(data);
-    console.log(results);
 
     return {
       statusCode: 200,

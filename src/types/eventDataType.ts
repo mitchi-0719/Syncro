@@ -37,16 +37,16 @@ export type scheduleType = {
   schedule_id: ScheduleTimeId;
   event_date: string;
   user_id: string;
-  status_id: number;
+  status_id: 1 | 2 | 3;
   status: string;
   schedule_time: Array<scheduleTimeType>;
 };
 
 export type eventDetailType = {
   event: eventType;
-  date: Array<dateType>;
-  user: Array<userType>;
-  schedule: Array<scheduleType>;
+  dates: Array<dateType>;
+  users: Array<userType>;
+  schedules: Array<scheduleType>;
 };
 
 export type eventOverviewType = {

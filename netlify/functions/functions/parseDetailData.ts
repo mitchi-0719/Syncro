@@ -15,15 +15,15 @@ export const parseDetailData = (data: EventDetail[]) => {
     default_end_time: data[0].default_end_time,
   };
 
-  const date = {};
-  const user = {};
-  const schedule = {};
+  const dates = {};
+  const users = {};
+  const schedules = {};
   data.forEach((d) => {
     if (
       isNotNullOrUndefined(d.event_date) &&
-      isNullOrUndefined(date[d.event_date])
+      isNullOrUndefined(dates[d.event_date])
     ) {
-      date[d.event_date] = {
+      dates[d.event_date] = {
         event_date: d.event_date,
         start_time: d.start_time,
         end_time: d.end_time,
@@ -31,8 +31,11 @@ export const parseDetailData = (data: EventDetail[]) => {
       };
     }
 
-    if (isNotNullOrUndefined(d.user_id) && isNullOrUndefined(user[d.user_id])) {
-      user[d.user_id] = {
+    if (
+      isNotNullOrUndefined(d.user_id) &&
+      isNullOrUndefined(users[d.user_id])
+    ) {
+      users[d.user_id] = {
         user_id: d.user_id,
         user_name: d.user_name,
         user_memo: d.user_memo,
@@ -40,8 +43,8 @@ export const parseDetailData = (data: EventDetail[]) => {
     }
 
     if (isNotNullOrUndefined(d.schedule_id)) {
-      if (isNullOrUndefined(schedule[d.schedule_id])) {
-        schedule[d.schedule_id] = {
+      if (isNullOrUndefined(schedules[d.schedule_id])) {
+        schedules[d.schedule_id] = {
           schedule_id: d.schedule_id,
           event_date: d.event_date,
           user_id: d.user_id,
@@ -56,7 +59,7 @@ export const parseDetailData = (data: EventDetail[]) => {
           ],
         };
       } else {
-        schedule[d.schedule_id].schedule_time.push({
+        schedules[d.schedule_id].schedule_time.push({
           schedule_time_id: d.schedule_time_id,
           schedule_start_time: d.schedule_start_time,
           schedule_end_time: d.schedule_end_time,
@@ -67,8 +70,8 @@ export const parseDetailData = (data: EventDetail[]) => {
 
   return {
     event,
-    date: Object.values(date),
-    user: Object.values(user),
-    schedule: Object.values(schedule),
+    dates: Object.values(dates),
+    users: Object.values(users),
+    schedules: Object.values(schedules),
   };
 };
