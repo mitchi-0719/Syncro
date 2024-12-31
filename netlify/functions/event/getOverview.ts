@@ -10,8 +10,8 @@ export const getOverview = async (event_id: string) => {
 
   try {
     const { data, error } = await supabase
-      .from("event_overview")
-      .select("*")
+      .from("event")
+      .select("event_id, title, create_at")
       .eq("event_id", event_id);
 
     if (error) {
@@ -29,17 +29,9 @@ export const getOverview = async (event_id: string) => {
       };
     }
 
-    const results = Object.entries(data[0]).reduce(
-      (acc, [key, value]) => {
-        acc[key] = key === "user_event" ? undefined : value;
-        return acc;
-      },
-      { count: data[0].user_event.length }
-    );
-
     return {
       statusCode: 200,
-      body: JSON.stringify(results),
+      body: JSON.stringify(data[0]),
     };
   } catch (err) {
     console.error("Transaction Error:", err);

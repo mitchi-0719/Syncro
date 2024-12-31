@@ -1,54 +1,62 @@
-import { Delete, OpenInNew } from "@mui/icons-material";
+import { OpenInNew } from "@mui/icons-material";
 import {
-  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
+  Divider,
+  Typography,
 } from "@mui/material";
+import useSWR from "swr";
+import { eventOverviewType } from "../../types/eventDataType";
+import { useNavigate } from "react-router-dom";
 
 type EventCardProp = {
-  eventTitle: string;
-  eventDescription: string;
-  createDate: string;
-  lastUpdateDate: string;
-  writeCount: number;
-  isAdmin?: boolean;
+  eventId: string;
 };
 
-export const EventCard = ({
-  eventTitle,
-  eventDescription,
-  createDate,
-  lastUpdateDate,
-  writeCount,
-  isAdmin,
-}: EventCardProp) => {
+export const EventCard = ({ eventId }: EventCardProp) => {
+  const navigate = useNavigate();
+
+  const fetchUrl = `.netlify/functions/event/overview/${eventId}`;
+  const { data, error } = useSWR(fetchUrl, async (url) => {
+    const response = await fetch(url);
+    return response.json() as Promise<eventOverviewType | null>;
+  });
+  if (!data || error) return null;
+
+  const { title: eventTitle, create_at: createDate } = data;
   return (
-    <Card sx={{ m: 1 }}>
-      <CardHeader title={eventTitle} subheader={eventDescription} />
-      <CardContent>
-        <Box display="flex" justifyContent="space-between">
-          <Box>
-            <Box>作成日: {createDate}</Box>
-            <Box>最終更新日: {lastUpdateDate}</Box>
-            <Box>投稿数: {writeCount}</Box>
-          </Box>
-          <CardActions>
-            <Button size="small" color="primary">
-              開く
-              <OpenInNew />
-            </Button>
-            {isAdmin && (
-              <Button size="small" color="primary">
-                削除
-                <Delete />
-              </Button>
-            )}
-          </CardActions>
-        </Box>
+    <Card sx={{ width: "240px", m: 1 }}>
+      <CardHeader
+        title={eventTitle}
+        titleTypographyProps={{
+          style: { fontSize: "18px", fontWeight: "bold" },
+        }}
+        sx={{ marginBottom: "0px", paddingBottom: "0px" }}
+      />
+      <Divider sx={{ marginX: 2, marginBottom: 1 }} />
+      <CardContent
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          paddingTop: 1,
+          paddingBottom: 0,
+        }}
+      >
+        <Typography variant="body2">作成日: {createDate}</Typography>
       </CardContent>
+      <CardActions>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => navigate(`/event/${eventId}`)}
+          endIcon={<OpenInNew />}
+        >
+          開く
+        </Button>
+      </CardActions>
     </Card>
   );
 };

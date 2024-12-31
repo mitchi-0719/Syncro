@@ -1,30 +1,28 @@
-import { Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
-// ダーミー
-import {
-  dummyEventData,
-  dummySelectDate,
-  dummyUserSchedule,
-} from "../dummyData/evnet1";
-import { InsertSchedule, ScheduleTable } from "../components/event";
+import { Box } from "@mui/material";
+import { useParams } from "react-router-dom";
+import useSWR from "swr";
+import { eventOverviewType } from "../types/eventDataType";
 
 export const Event = () => {
-  const [isInsertSchedule, setIsInsertSchedule] = useState(false);
-  // const { eventId } = useParams<{ eventId: string }>();
-  // const { data } = useSWR(`/api/event/${eventId}`, () => dummyEventData);
-  const data = {
-    eventData: dummyEventData,
-    selectDate: dummySelectDate,
-    userSchedule: dummyUserSchedule,
-  };
+  const { eventId } = useParams<{ eventId: string }>();
+  const fetchUrl = `.netlify/functions/event/detail/${eventId}`;
+  const { data, error } = useSWR(fetchUrl, async (url) => {
+    const response = await fetch(url);
+    return response.json() as Promise<eventOverviewType | null>;
+  });
+
+  console.log(data);
+  console.log(error);
+  if (!data || error) return null;
   return (
     <Box>
-      <Typography>{data.eventData.eventTitle}</Typography>
+      aaa
+      {/* <Typography>{data.eventData.eventTitle}</Typography>
       <ScheduleTable data={data} />
       <Button onClick={() => setIsInsertSchedule(!isInsertSchedule)}>
         スケジュールを入力する
       </Button>
-      {isInsertSchedule && <InsertSchedule data={data} />}
+      {isInsertSchedule && <InsertSchedule data={data} />} */}
     </Box>
   );
 };
