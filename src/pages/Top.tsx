@@ -6,7 +6,7 @@ import { getSeenEventIdList } from "../function/getSeenEventIdList";
 export const Top = () => {
   const seenEventIdList = getSeenEventIdList();
   return (
-    <Box marginX="10%" marginY={4}>
+    <Box marginY={4}>
       <Typography>イベントを作成する</Typography>
       <EventCreator />
       <Typography>過去に開いたイベント</Typography>

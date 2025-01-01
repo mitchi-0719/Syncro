@@ -2,7 +2,7 @@ export type EventDate = {
   eventDate: string;
   startTime: string;
   endTime: string;
-  memo: string;
+  memo?: string;
 };
 
 export type InsertScheduleBodyType = {

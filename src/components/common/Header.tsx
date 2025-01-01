@@ -5,12 +5,12 @@ export const Header = () => {
     <AppBar
       position="static"
       color="primary"
-      sx={{ padding: 2, marginBottom: 1 }}
+      sx={{ paddingX: 2, paddingTop: 0.5, paddingBottom: 2, marginBottom: 1 }}
     >
       <Typography
         variant="h1"
         sx={{
-          fontSize: "2rem",
+          fontSize: "2.4rem",
           fontFamily: '"Agu Display", serif',
           fontOpticalSizing: "auto",
           fontWeight: 400,

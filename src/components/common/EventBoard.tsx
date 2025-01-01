@@ -8,7 +8,7 @@ type Props = {
 
 export const EventBoard = ({ eventIdList }: Props) => {
   return (
-    <Box display="flex" mx="auto" bgcolor="#e6f0f0">
+    <Box display="flex" mx="auto">
       {eventIdList?.map((eventId) => (
         <EventCard key={eventId} eventId={eventId} />
       ))}
