@@ -1,6 +1,8 @@
+import { ThemeProvider } from "@emotion/react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { FC, ReactNode } from "react";
+import { theme } from "../styles/muiTheme";
 
 type ProviderProps = {
   children: ReactNode;
@@ -8,8 +10,10 @@ type ProviderProps = {
 
 export const Provider: FC<ProviderProps> = ({ children }) => {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      {children}
-    </LocalizationProvider>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        {children}
+      </LocalizationProvider>
+    </ThemeProvider>
   );
 };

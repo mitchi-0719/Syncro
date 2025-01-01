@@ -1,0 +1,13 @@
+import { createTheme } from "@mui/material";
+
+export const theme = createTheme({
+  components: {
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          padding: "8px",
+        },
+      },
+    },
+  },
+});

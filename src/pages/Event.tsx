@@ -4,8 +4,10 @@ import useSWR from "swr";
 import { eventDetailType } from "../types/eventDataType";
 import { ScheduleTable } from "../components/event";
 import { BASE_URL } from "../constants/const";
+import { useState } from "react";
 
 export const Event = () => {
+  const [displayTime, setDisplayTime] = useState(false);
   const { eventId } = useParams<{ eventId: string }>();
   const fetchUrl = `${BASE_URL}event/detail/${eventId}`;
   const { data, error, isLoading } = useSWR(fetchUrl, async (url) => {
@@ -18,7 +20,7 @@ export const Event = () => {
     !isLoading && (
       <Box>
         <Typography variant="h2">{data.event.title}</Typography>
-        <ScheduleTable data={data} />
+        <ScheduleTable data={data} displayTime={displayTime} />
         {/* <Button onClick={() => setIsInsertSchedule(!isInsertSchedule)}>
           スケジュールを入力する
         </Button>

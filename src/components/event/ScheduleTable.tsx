@@ -11,7 +11,12 @@ import { eventDetailType } from "../../types/eventDataType";
 import { convertDate } from "../../function/convertDate";
 import { ScheduleTableRow } from "./ScheduleTableRow";
 
-export const ScheduleTable = ({ data }: { data: eventDetailType }) => {
+type ScheduleTableProps = {
+  data: eventDetailType;
+  displayTime: boolean;
+};
+
+export const ScheduleTable = ({ data, displayTime }: ScheduleTableProps) => {
   const { dates, users, schedules } = data;
   return (
     <TableContainer component={Paper}>
@@ -22,7 +27,12 @@ export const ScheduleTable = ({ data }: { data: eventDetailType }) => {
             {dates.map((date) => (
               <TableCell
                 key={date.event_date}
-                sx={{ borderLeft: 1, borderRight: 1, borderColor: "grey.300" }}
+                sx={{
+                  textAlign: "center",
+                  borderLeft: 1,
+                  borderRight: 1,
+                  borderColor: "grey.300",
+                }}
               >
                 {convertDate(date.event_date)}
               </TableCell>
@@ -36,6 +46,7 @@ export const ScheduleTable = ({ data }: { data: eventDetailType }) => {
               dates={dates}
               user={user}
               schedules={schedules}
+              displayTime={displayTime}
             />
           ))}
         </TableBody>
