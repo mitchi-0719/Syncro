@@ -3,6 +3,7 @@ import { parseRequest } from "../functions/parseRequest";
 import { isMethodType, MethodType } from "../types/MethodType";
 import { getOverview } from "./getOverview";
 import { getDetail } from "./getDetail";
+import { insertEvent } from "./insertEvent";
 
 export const handler: Handler = async (event) => {
   const { paths, method, body } = parseRequest(event);
@@ -17,11 +18,7 @@ export const handler: Handler = async (event) => {
   return results;
 };
 
-const router = async (
-  paths: Array<string>,
-  method: MethodType,
-  body: object
-) => {
+const router = async (paths: Array<string>, method: MethodType, body: any) => {
   switch (method) {
     case "GET":
       if (paths[1] === "overview") {
@@ -31,7 +28,7 @@ const router = async (
       }
       break;
     case "POST":
-      break;
+      return insertEvent(body);
     case "PUT":
       break;
     case "DELETE":

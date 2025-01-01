@@ -3,8 +3,7 @@ import { supabase } from "../util/supabase";
 type TableType = "event" | "user";
 
 const getRandomString = (length: number): string => {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_";
+  const characters = "abcdefghijklmnopqrstuvwxyz0123456789_";
   return Array.from({ length }, () =>
     characters.charAt(Math.floor(Math.random() * characters.length))
   ).join("");
