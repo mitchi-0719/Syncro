@@ -8,7 +8,7 @@ const App = () => {
     <Provider>
       <Box display="flex" flexDirection="column" minHeight="100vh">
         <Header />
-        <Box component="main" flex={1} marginX="10%" marginY={4}>
+        <Box component="main" flex={1}>
           <Router />
         </Box>
         <Footer />

@@ -4,26 +4,30 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
-import { eventDetailType } from "../../types/eventDataType";
+import { eventDetailType, scheduleType } from "../../types/eventDataType";
 import { convertDate } from "../../function/convertDate";
 import { ScheduleTableRow } from "./ScheduleTableRow";
 
 type ScheduleTableProps = {
   data: eventDetailType;
-  displayTime: boolean;
 };
 
-export const ScheduleTable = ({ data, displayTime }: ScheduleTableProps) => {
+export const ScheduleTable = ({ data }: ScheduleTableProps) => {
   const { dates, users, schedules } = data;
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
       <Table>
-        <TableHead>
-          <TableRow sx={{ borderBottom: 3, borderColor: "grey.300" }}>
-            <TableCell sx={{ borderRight: 3, borderColor: "grey.300" }} />
+        <TableHead sx={{ borderBottom: 3, borderColor: "grey.300" }}>
+          <TableRow>
+            <TableCell
+              sx={{ borderRight: 3, borderColor: "grey.300" }}
+              rowSpan={2}
+            />
             {dates.map((date) => (
               <TableCell
                 key={date.event_date}
@@ -37,6 +41,26 @@ export const ScheduleTable = ({ data, displayTime }: ScheduleTableProps) => {
                 {convertDate(date.event_date)}
               </TableCell>
             ))}
+            <TableCell sx={{ textAlign: "center" }} rowSpan={2}>
+              コメント
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            {dates.map((date) => (
+              <TableCell
+                key={date.event_date}
+                sx={{
+                  textAlign: "center",
+                  borderLeft: 1,
+                  borderRight: 1,
+                  borderColor: "grey.300",
+                }}
+              >
+                <Typography variant="body2" fontSize={12}>
+                  {date.date_memo ? date.date_memo : "-"}
+                </Typography>
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -46,11 +70,49 @@ export const ScheduleTable = ({ data, displayTime }: ScheduleTableProps) => {
               dates={dates}
               user={user}
               schedules={schedules}
-              displayTime={displayTime}
             />
           ))}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell
+              sx={{ borderTop: 3, borderRight: 3, borderColor: "grey.300" }}
+            />
+            {dates.map((date) => (
+              <TableCell
+                key={date.event_date}
+                sx={{
+                  textAlign: "center",
+                  borderLeft: 1,
+                  borderRight: 1,
+                  borderTop: 3,
+                  borderColor: "grey.300",
+                }}
+              >
+                <Typography variant="body2" fontSize={12}>
+                  {summarize(schedules, date.event_date)}
+                </Typography>
+              </TableCell>
+            ))}
+            <TableCell sx={{ borderTop: 3, borderColor: "grey.300" }} />
+          </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );
+};
+
+const summarize = (schedules: scheduleType[], date: string) => {
+  const result = {
+    1: 0,
+    2: 0,
+    3: 0,
+  };
+  schedules
+    .filter((s) => s.event_date === date)
+    .forEach((s) => {
+      result[s.status_id] += 1;
+    });
+
+  return `◯:${result[1]} / △:${result[2]} / ×:${result[3]}`;
 };

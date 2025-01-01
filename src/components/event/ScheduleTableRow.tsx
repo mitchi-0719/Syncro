@@ -1,5 +1,5 @@
 import { ChangeHistory, Clear, PanoramaFishEye } from "@mui/icons-material";
-import { Box, TableCell, TableRow, Tooltip, Typography } from "@mui/material";
+import { Box, TableCell, TableRow, Typography } from "@mui/material";
 import { dateType, scheduleType, userType } from "../../types/eventDataType";
 import { FC } from "react";
 
@@ -7,14 +7,12 @@ type ScheduleTableRowProp = {
   dates: Array<dateType>;
   user: userType;
   schedules: Array<scheduleType>;
-  displayTime: boolean;
 };
 
 export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
   dates,
   user,
   schedules,
-  displayTime,
 }) => {
   return (
     <TableRow>
@@ -42,29 +40,15 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
                 <PanoramaFishEye />
               ) : schedule.status_id === 2 ? (
                 <>
-                  <Tooltip
-                    title={
-                      <Box>
-                        <Typography variant="body1">参加可能時間</Typography>
-                        {schedule.schedule_time.map((times) => (
-                          <Typography
-                            key={times.schedule_time_id}
-                            variant="body2"
-                          >
-                            {`${times.schedule_start_time}〜${times.schedule_end_time}`}
-                          </Typography>
-                        ))}
-                      </Box>
-                    }
-                  >
+                  {schedule.schedule_time[0].schedule_start_time === null ? (
                     <ChangeHistory />
-                  </Tooltip>
-                  {displayTime && (
+                  ) : (
                     <Box>
                       {schedule.schedule_time.map((times) => (
                         <Typography
                           key={times.schedule_time_id}
                           variant="body2"
+                          fontSize={12}
                         >
                           {`${times.schedule_start_time}〜${times.schedule_end_time}`}
                         </Typography>
@@ -78,6 +62,9 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
           </TableCell>
         );
       })}
+      <TableCell sx={{ textAlign: "center" }}>
+        {user.user_memo ? user.user_memo : "-"}
+      </TableCell>
     </TableRow>
   );
 };

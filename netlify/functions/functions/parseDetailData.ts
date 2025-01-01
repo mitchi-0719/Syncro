@@ -11,8 +11,8 @@ export const parseDetailData = (data: EventDetail[]) => {
     description: data[0].description,
     create_at: data[0].create_at,
     last_update_at: data[0].last_update_at,
-    default_start_time: data[0].default_start_time,
-    default_end_time: data[0].default_end_time,
+    default_start_time: formatTime(data[0].default_start_time),
+    default_end_time: formatTime(data[0].default_end_time),
   };
 
   const dates = {};
@@ -25,8 +25,8 @@ export const parseDetailData = (data: EventDetail[]) => {
     ) {
       dates[d.event_date] = {
         event_date: d.event_date,
-        start_time: d.start_time,
-        end_time: d.end_time,
+        start_time: formatTime(d.start_time),
+        end_time: formatTime(d.end_time),
         date_memo: d.date_memo,
       };
     }
@@ -53,16 +53,16 @@ export const parseDetailData = (data: EventDetail[]) => {
           schedule_time: [
             {
               schedule_time_id: d.schedule_time_id,
-              schedule_start_time: d.schedule_start_time,
-              schedule_end_time: d.schedule_end_time,
+              schedule_start_time: formatTime(d.schedule_start_time),
+              schedule_end_time: formatTime(d.schedule_end_time),
             },
           ],
         };
       } else {
         schedules[d.schedule_id].schedule_time.push({
           schedule_time_id: d.schedule_time_id,
-          schedule_start_time: d.schedule_start_time,
-          schedule_end_time: d.schedule_end_time,
+          schedule_start_time: formatTime(d.schedule_start_time),
+          schedule_end_time: formatTime(d.schedule_end_time),
         });
       }
     }
@@ -74,4 +74,11 @@ export const parseDetailData = (data: EventDetail[]) => {
     users: Object.values(users),
     schedules: Object.values(schedules),
   };
+};
+
+const formatTime = (time: string | null) => {
+  if (time && time.length === 8) {
+    return time.substring(0, 5);
+  }
+  return time;
 };
