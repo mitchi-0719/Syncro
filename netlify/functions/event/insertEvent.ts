@@ -1,8 +1,8 @@
 import { getRandomId } from "../functions/getRandomId";
-import { InsertScheduleBodyType } from "../types/InsertScheduleBodyType";
+import { CreateScheduleBodyType } from "../types/CreateScheduleBody";
 import { supabase } from "../util/supabase";
 
-export const insertEvent = async (body: InsertScheduleBodyType) => {
+export const insertEvent = async (body: CreateScheduleBodyType) => {
   const eventId = await getRandomId("event");
   const today = new Date().toISOString().split("T")[0];
   const { title, description, defaultStartTime, defaultEndTime, dates } = body;

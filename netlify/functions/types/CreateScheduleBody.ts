@@ -5,7 +5,7 @@ export type EventDate = {
   memo?: string;
 };
 
-export type InsertScheduleBodyType = {
+export type CreateScheduleBodyType = {
   title: string;
   description: string;
   defaultStartTime: string;
