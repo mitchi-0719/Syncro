@@ -18,6 +18,7 @@ import { FC, MouseEvent, useState } from "react";
 import { eventDetailType, StatusId } from "../../types/eventDataType";
 import { KeyedMutator } from "swr";
 import { RangeTimePicker } from "../common/RangeTimePicker";
+import { InsertSchedule } from "../../api/InsertSchedule";
 
 type ScheduleInsertButtonProps = {
   data: eventDetailType;
@@ -27,18 +28,17 @@ type ScheduleInsertButtonProps = {
 export type InsertScheduleType = {
   date: string;
   status: StatusId;
-  schedule_time: { start_time: string | null; end_time: string | null }[];
+  scheduleTime: { start_time: string | null; end_time: string | null }[];
 };
 
 export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
   data,
-  mutate,
 }) => {
   const { event, dates } = data;
   const schedule: InsertScheduleType[] = dates.map((date) => ({
     date: date.event_date,
     status: 3,
-    schedule_time: [{ start_time: null, end_time: null }],
+    scheduleTime: [{ start_time: null, end_time: null }],
   }));
   const [isInsertSchedule, setIsInsertSchedule] = useState(false);
 
@@ -65,6 +65,7 @@ export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
       {isInsertSchedule && (
         <Box marginTop={5}>
           <ScheduleForm
+            eventId={event.event_id}
             schedule={schedule}
             defaultStartTime={event.default_start_time}
             defaultEndTime={event.default_end_time}
@@ -76,12 +77,14 @@ export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
 };
 
 type ScheduleFormProps = {
+  eventId: string;
   schedule: InsertScheduleType[];
   defaultStartTime: string;
   defaultEndTime: string;
 };
 
 const ScheduleForm: FC<ScheduleFormProps> = ({
+  eventId,
   schedule,
   defaultStartTime,
   defaultEndTime,
@@ -89,11 +92,13 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [tempSchedule, setTempSchedule] = useState(schedule);
-
-  const handleInsertSchedule = () => {};
+  console.log(tempSchedule);
+  const handleInsertSchedule = () => {
+    InsertSchedule(eventId, name, tempSchedule, comment);
+  };
 
   return (
-    <Box sx={{ marginX: "25%", bgcolor: "#fff", padding: 2 }}>
+    <Box sx={{ marginX: "20%", bgcolor: "#fff", padding: 2 }}>
       <Box display="flex" justifyContent="center">
         <Typography variant="h5">スケジュールを入力</Typography>
       </Box>
@@ -129,7 +134,7 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
                   );
                   setTempSchedule(newSchedule);
                 }}
-                scheduleTime={s.schedule_time}
+                scheduleTime={s.scheduleTime}
                 defaultStartTime={defaultStartTime}
                 defaultEndTime={defaultEndTime}
               />
@@ -184,7 +189,7 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
         : value === 1
         ? [{ start_time: defaultStartTime, end_time: defaultEndTime }]
         : scheduleTime;
-    setSchedule({ date, status: value, schedule_time: newScheduleTime });
+    setSchedule({ date, status: value, scheduleTime: newScheduleTime });
   };
   return (
     <TableRow key={date}>
@@ -245,7 +250,7 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
                 setSchedule({
                   date,
                   status,
-                  schedule_time: scheduleTime.map((st, i) =>
+                  scheduleTime: scheduleTime.map((st, i) =>
                     i === index ? { ...st, start_time: time } : st
                   ),
                 })
@@ -254,7 +259,7 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
                 setSchedule({
                   date,
                   status,
-                  schedule_time: scheduleTime.map((st, i) =>
+                  scheduleTime: scheduleTime.map((st, i) =>
                     i === index ? { ...st, end_time: time } : st
                   ),
                 })

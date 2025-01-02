@@ -1,3 +1,5 @@
+import { BASE_URL } from "../constants/const";
+
 type EventDate = {
   eventDate: string;
   startTime?: string;
@@ -20,7 +22,7 @@ export const createEvent = async (
       date.endTime = defaultEndTime;
     }
   });
-  const response = await fetch("/.netlify/functions/event", {
+  const response = await fetch(`${BASE_URL}event`, {
     method: "POST",
     body: JSON.stringify({
       title,

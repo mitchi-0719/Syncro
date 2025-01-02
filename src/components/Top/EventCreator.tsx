@@ -14,13 +14,11 @@ export const EventCreator = () => {
   const [selectDates, setSelectDates] = useState<string[]>([]);
   const [startTime, setStartTime] = useState("08:00");
   const [endTime, setEndTime] = useState("22:00");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = () => {
     const eventDates = selectDates.map((date) => ({
       eventDate: date,
     }));
-    setIsLoading(true);
     createEvent(title, description, startTime, endTime, eventDates)
       .then((res) => {
         console.log(res);
@@ -29,9 +27,7 @@ export const EventCreator = () => {
         navigate(`/event/${eventId}`);
       })
       .catch()
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => {});
   };
 
   return (

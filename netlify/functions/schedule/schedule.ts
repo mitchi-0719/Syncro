@@ -1,7 +1,7 @@
 import { Handler } from "@netlify/functions";
 import { parseRequest } from "../functions/parseRequest";
 import { isMethodType, MethodType } from "../types/MethodType";
-import { getRandomId } from "../functions/getRandomId";
+import { insertSchedule } from "./insertSchedule";
 
 export const handler: Handler = async (event) => {
   const { paths, method, body } = parseRequest(event);
@@ -16,12 +16,16 @@ export const handler: Handler = async (event) => {
   return results;
 };
 
-const router = async (
-  paths: Array<string>,
-  method: MethodType,
-  body: object
-) => {
+const router = async (paths: Array<string>, method: MethodType, body: any) => {
   if (method === "POST") {
+    if (paths[0] === "schedule") {
+      return insertSchedule(paths[1], body);
+    } else {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ message: "Not Found" }),
+      };
+    }
   } else {
     return {
       statusCode: 405,
