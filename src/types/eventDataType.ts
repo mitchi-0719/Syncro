@@ -2,6 +2,7 @@ export type EventId = string;
 export type UserId = string;
 export type ScheduleId = number;
 export type ScheduleTimeId = number;
+export type StatusId = 1 | 2 | 3;
 
 export type eventType = {
   event_id: EventId;
@@ -37,8 +38,7 @@ export type scheduleType = {
   schedule_id: ScheduleTimeId;
   event_date: string;
   user_id: string;
-  status_id: 1 | 2 | 3;
-  status: string;
+  status_id: StatusId;
   schedule_time: Array<scheduleTimeType>;
 };
 

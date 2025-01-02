@@ -1,2 +1,2 @@
-export * from "./InsertSchedule";
+export * from "./ScheduleInsertButton";
 export * from "./ScheduleTable";

@@ -48,6 +48,6 @@ export const insertEvent = async (body: CreateScheduleBodyType) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: "Event created successfully" }),
+    body: JSON.stringify({ message: "Event created successfully", eventId }),
   };
 };

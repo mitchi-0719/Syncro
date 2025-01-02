@@ -8,6 +8,16 @@ interface TimePickerProps {
   minuteRange?: [number, number];
 }
 
+/**
+ * TODO: これに変える
+ * <input
+    type="time"
+    value={startTime}
+    onChange={(e) => setStartTime(e.target.value)}
+  />
+  まじでこれでいい。。。
+ */
+
 export const TimePicker: React.FC<TimePickerProps> = ({
   value = "12:00",
   onChange,
@@ -53,11 +63,22 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
   return (
     // TODO:: スマホで使えない
-    <Box width={80} bgcolor={"#fff"} borderRadius={1}>
+    <Box bgcolor={"#fff"} borderRadius={1}>
       <TextField
         value={selectedTime}
         onClick={openMenu}
-        sx={{ width: "100%" }}
+        sx={{
+          width: "100%",
+          height: "40px",
+          "& .MuiInputBase-root": {
+            height: "100%",
+            alignItems: "flex-start",
+          },
+          "& .MuiInputBase-input": {
+            height: "100%",
+            paddingY: "0",
+          },
+        }}
       />
 
       <Menu

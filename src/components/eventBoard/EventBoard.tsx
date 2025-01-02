@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { EventCard } from "./EventCard";
 import { EventId } from "../../types/eventDataType";
+import { EventCard } from "./EventCard";
 
 type Props = {
   eventIdList: EventId[];
@@ -8,8 +8,8 @@ type Props = {
 
 export const EventBoard = ({ eventIdList }: Props) => {
   return (
-    <Box display="flex" mx="auto">
-      {eventIdList?.map((eventId) => (
+    <Box display="flex" mx="auto" bgcolor={"#efefef"} p={1}>
+      {eventIdList.reverse().map((eventId) => (
         <EventCard key={eventId} eventId={eventId} />
       ))}
     </Box>

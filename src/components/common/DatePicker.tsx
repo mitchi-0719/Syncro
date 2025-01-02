@@ -66,8 +66,8 @@ export const DatePicker: FC<DatePickerProps> = ({
   return (
     <Box
       sx={{
+        bgcolor: "#fff",
         width: "100%",
-        maxWidth: 300,
         margin: "auto",
         textAlign: "center",
         border: "1px solid #ccc",
@@ -140,11 +140,14 @@ export const DatePicker: FC<DatePickerProps> = ({
                     : isDisabled
                     ? "#f0f0f0"
                     : "transparent",
-                  // TODO: ホバーと選択時の色を変えないとわかりにくい
                   color: isSelected ? "#fff" : isDisabled ? "#ccc" : "inherit",
                   "&:hover": {
-                    bgcolor: isDisabled ? "transparent" : "secondary.main",
-                    color: isDisabled ? "inherit" : "#fff",
+                    bgcolor: isDisabled
+                      ? "#f0f0f0"
+                      : isSelected
+                      ? "secondary.main"
+                      : "secondary.light",
+                    color: isDisabled ? "#ccc" : "#fff",
                   },
                 }}
               >

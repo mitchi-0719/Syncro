@@ -1,16 +1,14 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { EventCreator } from "../components/Top/EventCreator";
-import { EventBoard } from "../components/common";
-import { getSeenEventIdList } from "../function/getSeenEventIdList";
+import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
 
 export const Top = () => {
-  const seenEventIdList = getSeenEventIdList();
   return (
-    <Box marginY={4}>
-      <Typography>イベントを作成する</Typography>
+    <Box marginX={10} marginY={4}>
+      <Typography variant="h5">イベントを作成する</Typography>
+      <Divider sx={{ marginBottom: 2 }} />
       <EventCreator />
-      <Typography>過去に開いたイベント</Typography>
-      <EventBoard eventIdList={seenEventIdList} />
+      <PastSeenEventBoard />
     </Box>
   );
 };

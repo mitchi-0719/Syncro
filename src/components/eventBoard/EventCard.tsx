@@ -19,10 +19,17 @@ export const EventCard = ({ eventId }: EventCardProp) => {
   const navigate = useNavigate();
 
   const fetchUrl = `${BASE_URL}event/overview/${eventId}`;
-  const { data, error, isLoading } = useSWR(fetchUrl, async (url) => {
-    const response = await fetch(url).then((res) => res.json());
-    return response as eventOverviewType | null;
-  });
+  const { data, error, isLoading } = useSWR(
+    fetchUrl,
+    async (url) => {
+      const response = await fetch(url).then((res) => res.json());
+      return response as eventOverviewType | null;
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
   if (!data || error) return null;
 
   const { title: eventTitle, create_at: createDate } = data;
