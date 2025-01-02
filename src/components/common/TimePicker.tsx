@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Box, Menu, MenuItem, TextField, Typography } from "@mui/material";
 
 interface TimePickerProps {
-  value?: string; // 現在選択されている時間 (例: "12:30")
-  onChange?: (time: string) => void; // 時間が変更されたときのコールバック
-  hourRange?: [number, number]; // 設定可能な時間範囲 (例: [0, 23])
-  minuteRange?: [number, number]; // 設定可能な分範囲 (例: [0, 59])
+  value?: string;
+  onChange?: (time: string) => void;
+  hourRange?: [number, number];
+  minuteRange?: [number, number];
 }
 
 export const TimePicker: React.FC<TimePickerProps> = ({
@@ -52,8 +52,13 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   };
 
   return (
-    <Box width={120} bgcolor={"#fff"} borderRadius={1}>
-      <TextField value={selectedTime} onClick={openMenu} sx={{ width: 120 }} />
+    // TODO:: スマホで使えない
+    <Box width={80} bgcolor={"#fff"} borderRadius={1}>
+      <TextField
+        value={selectedTime}
+        onClick={openMenu}
+        sx={{ width: "100%" }}
+      />
 
       <Menu
         anchorEl={anchorEl}

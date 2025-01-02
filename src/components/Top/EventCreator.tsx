@@ -25,14 +25,18 @@ export const EventCreator = () => {
           <Typography>イベントの説明</Typography>
           <TextField
             value={description}
+            multiline
             onChange={(e) => setDescription(e.target.value)}
             sx={{ bgcolor: "#fff" }}
           />
         </Box>
         <Box>
           <Typography>調整する時間範囲</Typography>
-          <TimePicker value={startTime} onChange={setStartTime} />
-          <TimePicker value={endTime} onChange={setEndTime} />
+          <Box display="flex" alignItems="center">
+            <TimePicker value={startTime} onChange={setStartTime} />
+            〜
+            <TimePicker value={endTime} onChange={setEndTime} />
+          </Box>
         </Box>
       </Box>
       <Box>
@@ -40,8 +44,7 @@ export const EventCreator = () => {
         <Box
           sx={{
             width: "100%",
-            height: "240px",
-            position: "relative",
+            height: "260px",
           }}
         >
           <TextField
