@@ -1,5 +1,4 @@
 import { AppBar, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -19,9 +18,9 @@ export const Header = () => {
           fontVariationSettings: '"MORF" 10',
         }}
       >
-        <Link to="/" style={{ textDecoration: "none" }}>
-          Syncro
-        </Link>
+        {/* <Link to="/" style={{ textDecoration: "none" }}> */}
+        Syncro
+        {/* </Link> */}
       </Typography>
     </AppBar>
   );
