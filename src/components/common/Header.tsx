@@ -1,4 +1,4 @@
-import { AppBar, Typography } from "@mui/material";
+import { AppBar, Link, Typography } from "@mui/material";
 
 export const Header = () => {
   return (
@@ -18,9 +18,9 @@ export const Header = () => {
           fontVariationSettings: '"MORF" 10',
         }}
       >
-        {/* <Link to="/" style={{ textDecoration: "none" }}> */}
-        Syncro
-        {/* </Link> */}
+        <Link href="/" color="inherit" underline="none">
+          Syncro
+        </Link>
       </Typography>
     </AppBar>
   );
