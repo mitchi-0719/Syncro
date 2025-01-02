@@ -33,6 +33,7 @@ export type InsertScheduleType = {
 
 export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
   data,
+  mutate,
 }) => {
   const { event, dates } = data;
   const schedule: InsertScheduleType[] = dates.map((date) => ({
@@ -69,6 +70,8 @@ export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
             schedule={schedule}
             defaultStartTime={event.default_start_time}
             defaultEndTime={event.default_end_time}
+            mutate={mutate}
+            onClose={() => setIsInsertSchedule(false)}
           />
         </Box>
       )}
@@ -81,6 +84,8 @@ type ScheduleFormProps = {
   schedule: InsertScheduleType[];
   defaultStartTime: string;
   defaultEndTime: string;
+  mutate: KeyedMutator<eventDetailType | null>;
+  onClose: () => void;
 };
 
 const ScheduleForm: FC<ScheduleFormProps> = ({
@@ -88,13 +93,17 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
   schedule,
   defaultStartTime,
   defaultEndTime,
+  mutate,
+  onClose,
 }) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [tempSchedule, setTempSchedule] = useState(schedule);
-  console.log(tempSchedule);
   const handleInsertSchedule = () => {
-    InsertSchedule(eventId, name, tempSchedule, comment);
+    InsertSchedule(eventId, name, tempSchedule, comment).then(() => {
+      mutate();
+      onClose();
+    });
   };
 
   return (
@@ -156,6 +165,7 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
         <Button
           variant="contained"
           onClick={handleInsertSchedule}
+          disabled={name === ""}
           sx={{ color: "#fff", fontWeight: "bold", fontSize: 20, marginTop: 2 }}
         >
           スケジュールを入力する
