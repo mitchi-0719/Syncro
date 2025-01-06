@@ -6,8 +6,9 @@ import { ScheduleInsertButton, ScheduleTable } from "../components/event";
 import { BASE_URL } from "../constants/const";
 import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
 import { useEffect } from "react";
-import { updateSeenEventIdList } from "../function/updateSeenEventIdList";
 import { isNotNullOrUndefined } from "../function/isNullOrUndefined";
+import { setSeenEventIdList } from "../function/localStorage/seenEventIdList";
+import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
 
 export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -15,7 +16,7 @@ export const Event = () => {
 
   useEffect(() => {
     if (isNotNullOrUndefined(eventId)) {
-      updateSeenEventIdList(eventId);
+      setSeenEventIdList(eventId);
     }
   }, [eventId]);
 
@@ -44,7 +45,6 @@ export const Event = () => {
         <Box marginX={1} marginBottom={2} bgcolor={"#efefef"} p={1}>
           <Typography variant="caption">{data.event.description}</Typography>
         </Box>
-        <Typography variant="h6">調整時間</Typography>
         <Typography variant="h6">
           スケジュール
           <Typography variant="caption">
@@ -53,7 +53,8 @@ export const Event = () => {
         </Typography>
         <ScheduleTable data={data} />
         <ScheduleInsertButton data={data} mutate={mutate} />
-        <PastSeenEventBoard />
+        <PastSeenEventBoard currentEventid={eventId} />
+        <CreatedEventBoard currentEventid={eventId} />
       </Box>
     )
   );

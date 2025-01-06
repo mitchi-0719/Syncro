@@ -45,19 +45,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "event_detail";
             referencedColumns: ["event_id"];
-          },
-          {
-            foreignKeyName: "date_event_id_fkey";
-            columns: ["event_id"];
-            isOneToOne: false;
-            referencedRelation: "event_overview";
-            referencedColumns: ["event_id"];
-          },
+          }
         ];
       };
       event: {
         Row: {
           create_at: string;
+          creator_id: string;
           default_end_time: string;
           default_start_time: string;
           description: string | null;
@@ -67,6 +61,7 @@ export type Database = {
         };
         Insert: {
           create_at?: string;
+          creator_id: string;
           default_end_time: string;
           default_start_time: string;
           description?: string | null;
@@ -76,6 +71,7 @@ export type Database = {
         };
         Update: {
           create_at?: string;
+          creator_id?: string;
           default_end_time?: string;
           default_start_time?: string;
           description?: string | null;
@@ -123,13 +119,6 @@ export type Database = {
             referencedColumns: ["event_id"];
           },
           {
-            foreignKeyName: "schedule_event_id_fkey";
-            columns: ["event_id"];
-            isOneToOne: false;
-            referencedRelation: "event_overview";
-            referencedColumns: ["event_id"];
-          },
-          {
             foreignKeyName: "schedule_status_id_fkey";
             columns: ["status_id"];
             isOneToOne: false;
@@ -142,7 +131,7 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "user";
             referencedColumns: ["user_id"];
-          },
+          }
         ];
       };
       schedule_time: {
@@ -178,7 +167,7 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "schedule";
             referencedColumns: ["schedule_id"];
-          },
+          }
         ];
       };
       status: {
@@ -243,19 +232,12 @@ export type Database = {
             referencedColumns: ["event_id"];
           },
           {
-            foreignKeyName: "user_event_event_id_fkey";
-            columns: ["event_id"];
-            isOneToOne: false;
-            referencedRelation: "event_overview";
-            referencedColumns: ["event_id"];
-          },
-          {
             foreignKeyName: "user_event_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "user";
             referencedColumns: ["user_id"];
-          },
+          }
         ];
       };
     };
@@ -297,35 +279,12 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "user";
             referencedColumns: ["user_id"];
-          },
+          }
         ];
-      };
-      event_overview: {
-        Row: {
-          count: number | null;
-          create_at: string | null;
-          default_end_time: string | null;
-          default_start_time: string | null;
-          description: string | null;
-          event_id: string | null;
-          last_update_at: string | null;
-          title: string | null;
-        };
-        Relationships: [];
       };
     };
     Functions: {
-      generate_event_id:
-        | {
-            Args: Record<PropertyKey, never>;
-            Returns: string;
-          }
-        | {
-            Args: {
-              length: number;
-            };
-            Returns: string;
-          };
+      [_ in never]: never;
     };
     Enums: {
       [_ in never]: never;
@@ -345,7 +304,7 @@ export type Tables<
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
@@ -354,14 +313,14 @@ export type Tables<
     ? R
     : never
   : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R;
-      }
-      ? R
-      : never
-    : never;
+      PublicSchema["Views"])
+  ? (PublicSchema["Tables"] &
+      PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+      Row: infer R;
+    }
+    ? R
+    : never
+  : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -369,7 +328,7 @@ export type TablesInsert<
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I;
@@ -377,12 +336,12 @@ export type TablesInsert<
     ? I
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I;
-      }
-      ? I
-      : never
-    : never;
+  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+      Insert: infer I;
+    }
+    ? I
+    : never
+  : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -390,7 +349,7 @@ export type TablesUpdate<
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U;
@@ -398,12 +357,12 @@ export type TablesUpdate<
     ? U
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U;
-      }
-      ? U
-      : never
-    : never;
+  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+      Update: infer U;
+    }
+    ? U
+    : never
+  : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -411,12 +370,12 @@ export type Enums<
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never = never
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never;
+  ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+  : never;
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
@@ -426,12 +385,12 @@ export type CompositeTypes<
     schema: keyof Database;
   }
     ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never = never
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never;
+  ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : never;
 
 // Schema: public
 // Tables
@@ -469,12 +428,3 @@ export type UpdateUserEvent =
 
 // Views
 export type EventDetail = Database["public"]["Views"]["event_detail"]["Row"];
-
-export type EventOverview =
-  Database["public"]["Views"]["event_overview"]["Row"];
-
-// Functions
-export type ArgsGenerateEventId =
-  Database["public"]["Functions"]["generate_event_id"]["Args"];
-export type ReturnTypeGenerateEventId =
-  Database["public"]["Functions"]["generate_event_id"]["Returns"];

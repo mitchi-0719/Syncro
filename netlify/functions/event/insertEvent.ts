@@ -4,6 +4,7 @@ import { supabase } from "../util/supabase";
 
 export const insertEvent = async (body: CreateEventBodyType) => {
   const eventId = await getRandomId("event");
+  const creatorId = await getRandomId("creator");
   const today = new Date().toISOString().split("T")[0];
   const { title, description, defaultStartTime, defaultEndTime, dates } = body;
 
@@ -15,6 +16,7 @@ export const insertEvent = async (body: CreateEventBodyType) => {
     last_update_at: today,
     default_start_time: defaultStartTime,
     default_end_time: defaultEndTime,
+    creator_id: creatorId,
   };
   const { error } = await supabase.from("event").insert(insertData);
 
@@ -48,6 +50,10 @@ export const insertEvent = async (body: CreateEventBodyType) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: "Event created successfully", eventId }),
+    body: JSON.stringify({
+      message: "Event created successfully",
+      eventId,
+      creatorId,
+    }),
   };
 };

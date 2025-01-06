@@ -4,7 +4,8 @@ import { DatePicker, TimePicker } from "../common";
 import { createEvent } from "../../api/createEvent";
 import { compareDate } from "../../function/compareDate";
 import { useNavigate } from "react-router-dom";
-import { updateSeenEventIdList } from "../../function/updateSeenEventIdList";
+import { setSeenEventIdList } from "../../function/localStorage/seenEventIdList";
+import { setCreatorIdList } from "../../function/localStorage/creatorIdList";
 
 export const EventCreator = () => {
   const navigate = useNavigate();
@@ -23,7 +24,9 @@ export const EventCreator = () => {
       .then((res) => {
         console.log(res);
         const eventId = res.eventId;
-        updateSeenEventIdList(eventId);
+        const creatorId = res.creatorId;
+        setSeenEventIdList(eventId);
+        setCreatorIdList(creatorId);
         navigate(`/event/${eventId}`);
       })
       .catch()

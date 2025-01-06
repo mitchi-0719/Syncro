@@ -1,6 +1,6 @@
 import { supabase } from "../util/supabase";
 
-type TableType = "event" | "user";
+type TableType = "event" | "user" | "creator";
 
 const getRandomString = (length: number): string => {
   const characters = "abcdefghijklmnopqrstuvwxyz0123456789_";
@@ -27,10 +27,12 @@ export const getRandomId = async (tableType: TableType) => {
   const tableNameMap: { [key in TableType]: string } = {
     event: "event",
     user: "user",
+    creator: "event",
   };
   const idNameMap: { [key in TableType]: string } = {
     event: "event_id",
     user: "user_id",
+    creator: "creator_id",
   };
 
   const { data, error } = await supabase

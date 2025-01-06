@@ -1,6 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
 import { EventCreator } from "../components/Top/EventCreator";
 import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
+import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
 
 export const Top = () => {
   return (
@@ -9,6 +10,7 @@ export const Top = () => {
       <Divider sx={{ marginBottom: 2 }} />
       <EventCreator />
       <PastSeenEventBoard />
+      <CreatedEventBoard />
     </Box>
   );
 };

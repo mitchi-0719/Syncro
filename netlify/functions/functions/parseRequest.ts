@@ -6,7 +6,9 @@ export const parseRequest = (event: HandlerEvent) => {
     .split("/")
     .filter(Boolean);
   const method = event.httpMethod;
+  const query = event.multiValueQueryStringParameters;
   const body = event.body ? JSON.parse(event.body) : null;
+  console.log(query);
 
-  return { paths, method, body };
+  return { paths, query, method, body };
 };
