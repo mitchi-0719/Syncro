@@ -4,6 +4,7 @@ import { getCreatorIdList } from "../../function/localStorage/creatorIdList";
 import useSWR from "swr";
 import { BASE_URL } from "../../constants/const";
 import { isNullOrUndefinedOrEmptyArray } from "../../function/isNullOrUndefined";
+import { isEqualArray } from "../../function/isEqualArray";
 
 type Props = {
   currentEventid?: string;
@@ -36,7 +37,12 @@ export const CreatedEventBoard = ({ currentEventid }: Props) => {
     }
   );
 
-  if (error || isLoading || isNullOrUndefinedOrEmptyArray(eventIdList)) {
+  if (
+    error ||
+    isLoading ||
+    isNullOrUndefinedOrEmptyArray(eventIdList) ||
+    isEqualArray(eventIdList, [currentEventid], true)
+  ) {
     return null;
   }
 
