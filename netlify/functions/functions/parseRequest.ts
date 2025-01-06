@@ -8,7 +8,6 @@ export const parseRequest = (event: HandlerEvent) => {
   const method = event.httpMethod;
   const query = event.multiValueQueryStringParameters;
   const body = event.body ? JSON.parse(event.body) : null;
-  console.log(query);
 
   return { paths, query, method, body };
 };

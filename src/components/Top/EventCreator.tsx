@@ -22,7 +22,6 @@ export const EventCreator = () => {
     }));
     createEvent(title, description, startTime, endTime, eventDates)
       .then((res) => {
-        console.log(res);
         const eventId = res.eventId;
         const creatorId = res.creatorId;
         setSeenEventIdList(eventId);
