@@ -5,10 +5,20 @@ import { eventDetailType } from "../types/eventDataType";
 import { ScheduleInsertButton, ScheduleTable } from "../components/event";
 import { BASE_URL } from "../constants/const";
 import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
+import { useEffect } from "react";
+import { updateSeenEventIdList } from "../function/updateSeenEventIdList";
+import { isNotNullOrUndefined } from "../function/isNullOrUndefined";
 
 export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
   const fetchUrl = `${BASE_URL}event/detail/${eventId}`;
+
+  useEffect(() => {
+    if (isNotNullOrUndefined(eventId)) {
+      updateSeenEventIdList(eventId);
+    }
+  }, [eventId]);
+
   const { data, error, isLoading, mutate } = useSWR(
     fetchUrl,
     async (url) => {
