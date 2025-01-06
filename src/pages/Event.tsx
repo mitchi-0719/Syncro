@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { isNotNullOrUndefined } from "../function/isNullOrUndefined";
 import { setSeenEventIdList } from "../function/localStorage/seenEventIdList";
 import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
+import { UrlCopyButton } from "../components/common/UrlCopyButton";
 
 export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -55,6 +56,7 @@ export const Event = () => {
         <ScheduleInsertButton data={data} mutate={mutate} />
         <PastSeenEventBoard currentEventid={eventId} />
         <CreatedEventBoard currentEventid={eventId} />
+        <UrlCopyButton url={window.location.href} />
       </Box>
     )
   );

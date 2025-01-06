@@ -9,7 +9,7 @@ type Props = {
 
 export const EventBoard = ({ eventIdList, notDisplayEventId }: Props) => {
   return (
-    <Box display="flex" mx="auto" bgcolor={"#efefef"} p={1}>
+    <Box display="flex" flexWrap="wrap" mx="auto" bgcolor={"#efefef"} p={1}>
       {eventIdList.reverse().map((eventId) => {
         if (eventId === notDisplayEventId) return null;
         return <EventCard key={eventId} eventId={eventId} />;

@@ -1,11 +1,12 @@
 import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { DatePicker, TimePicker } from "../common";
+import { DatePicker } from "../common";
 import { createEvent } from "../../api/createEvent";
 import { compareDate } from "../../function/compareDate";
 import { useNavigate } from "react-router-dom";
 import { setSeenEventIdList } from "../../function/localStorage/seenEventIdList";
 import { setCreatorIdList } from "../../function/localStorage/creatorIdList";
+import { RangeTimePicker } from "../common/RangeTimePicker";
 
 export const EventCreator = () => {
   const navigate = useNavigate();
@@ -82,11 +83,14 @@ export const EventCreator = () => {
           <Box>
             <Typography variant="h6">調整する時間範囲</Typography>
             <Divider sx={{ marginBottom: 2 }} />
-            <Box display="flex" alignItems="center">
-              <TimePicker value={startTime} onChange={setStartTime} />
-              〜
-              <TimePicker value={endTime} onChange={setEndTime} />
-            </Box>
+            <RangeTimePicker
+              startTime={startTime}
+              endTime={endTime}
+              setStartTime={setStartTime}
+              setEndTime={setEndTime}
+              boxSx={{ gap: 2 }}
+              timePickerSx={{ bgcolor: "#fff" }}
+            />
           </Box>
           <Typography>選択された日付</Typography>
           <Box

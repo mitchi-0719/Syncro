@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box, SxProps, TextField, Theme } from "@mui/material";
 import { FC } from "react";
 
 type RangeTimePickerProps = {
@@ -7,6 +7,8 @@ type RangeTimePickerProps = {
   setStartTime: (time: string) => void;
   setEndTime: (time: string) => void;
   disabled?: boolean;
+  boxSx?: SxProps<Theme>;
+  timePickerSx?: SxProps<Theme>;
 };
 
 export const RangeTimePicker: FC<RangeTimePickerProps> = ({
@@ -15,6 +17,8 @@ export const RangeTimePicker: FC<RangeTimePickerProps> = ({
   setStartTime,
   setEndTime,
   disabled,
+  boxSx,
+  timePickerSx,
 }) => {
   const handleStartChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStartTime(e.target.value);
@@ -24,13 +28,14 @@ export const RangeTimePicker: FC<RangeTimePickerProps> = ({
   };
 
   return (
-    <Box display="flex" alignItems="center" gap={1}>
+    <Box display="flex" alignItems="center" gap={1} sx={boxSx}>
       <TextField
         value={startTime}
         type="time"
         size="small"
         onChange={handleStartChange}
         disabled={disabled}
+        sx={timePickerSx}
       />
       〜
       <TextField
@@ -39,6 +44,7 @@ export const RangeTimePicker: FC<RangeTimePickerProps> = ({
         size="small"
         onChange={handleEndChange}
         disabled={disabled}
+        sx={timePickerSx}
       />
     </Box>
   );
