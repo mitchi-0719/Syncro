@@ -14,8 +14,9 @@ export const PastSeenEventBoard = ({ currentEventid }: Props) => {
   if (
     isNullOrUndefinedOrEmptyArray(seenEventIdList) ||
     isEqualArray(seenEventIdList, [currentEventid], true)
-  )
+  ) {
     return null;
+  }
   return (
     <Box marginY={4}>
       <Typography variant="h5">過去に開いたイベント</Typography>

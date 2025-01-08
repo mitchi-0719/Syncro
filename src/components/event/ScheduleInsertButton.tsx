@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Divider,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -13,7 +14,13 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import { Cancel, ChangeHistory, PanoramaFishEye } from "@mui/icons-material";
+import {
+  AddCircle,
+  Cancel,
+  ChangeHistory,
+  PanoramaFishEye,
+  RemoveCircle,
+} from "@mui/icons-material";
 import { FC, MouseEvent, useState } from "react";
 import { eventDetailType, StatusId } from "../../types/eventDataType";
 import { KeyedMutator } from "swr";
@@ -128,7 +135,10 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
             <TableRow key="header" sx={{ backgroundColor: "#efefef" }}>
               <TableCell width="160px">日付</TableCell>
               <TableCell>ステータス</TableCell>
-              <TableCell>詳細時間</TableCell>
+              <TableCell>
+                詳細時間
+                <Typography variant="caption">{`（${defaultStartTime}~${defaultEndTime}）`}</Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -192,6 +202,7 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
   defaultStartTime,
   defaultEndTime,
 }) => {
+  const [error, setError] = useState<string | null>(null);
   const handleToggle = (_: MouseEvent<HTMLElement>, value: StatusId) => {
     const newScheduleTime =
       value === 3
@@ -201,6 +212,34 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
         : scheduleTime;
     setSchedule({ date, status: value, scheduleTime: newScheduleTime });
   };
+
+  const handleAddTime = () => {
+    if (scheduleTime.length >= 3) return;
+    if (
+      scheduleTime.some((t) => t.start_time === null || t.end_time === null)
+    ) {
+      setError("時間を入力してください");
+      return;
+    }
+    setSchedule({
+      date,
+      status,
+      scheduleTime: [...scheduleTime, { start_time: null, end_time: null }],
+    });
+    setError(null);
+  };
+
+  const handleDeleteTime = () => {
+    if (scheduleTime.length <= 1) return;
+    const newScheduleTime = scheduleTime.slice(0, -1);
+    setSchedule({
+      date,
+      status,
+      scheduleTime: newScheduleTime,
+    });
+    setError(null);
+  };
+
   return (
     <TableRow key={date}>
       <TableCell>
@@ -249,35 +288,60 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
           </ToggleButton>
         </ToggleButtonGroup>
       </TableCell>
-      <TableCell>
-        {scheduleTime.map((t, index) => {
-          return (
-            <RangeTimePicker
-              key={index}
-              startTime={t.start_time ?? ""}
-              endTime={t.end_time ?? ""}
-              setStartTime={(time) =>
-                setSchedule({
-                  date,
-                  status,
-                  scheduleTime: scheduleTime.map((st, i) =>
-                    i === index ? { ...st, start_time: time } : st
-                  ),
-                })
-              }
-              setEndTime={(time) =>
-                setSchedule({
-                  date,
-                  status,
-                  scheduleTime: scheduleTime.map((st, i) =>
-                    i === index ? { ...st, end_time: time } : st
-                  ),
-                })
-              }
-              disabled={status === 3 || status === 1}
-            />
-          );
-        })}
+      <TableCell sx={{ display: "flex" }}>
+        <Box display="flex" flexDirection="column" gap={1}>
+          {scheduleTime.map((t, index) => {
+            return (
+              <RangeTimePicker
+                key={index}
+                startTime={t.start_time ?? ""}
+                endTime={t.end_time ?? ""}
+                setStartTime={(time) =>
+                  setSchedule({
+                    date,
+                    status,
+                    scheduleTime: scheduleTime.map((st, i) =>
+                      i === index ? { ...st, start_time: time } : st
+                    ),
+                  })
+                }
+                setEndTime={(time) =>
+                  setSchedule({
+                    date,
+                    status,
+                    scheduleTime: scheduleTime.map((st, i) =>
+                      i === index ? { ...st, end_time: time } : st
+                    ),
+                  })
+                }
+                minTime={defaultStartTime}
+                maxTime={defaultEndTime}
+                disabled={status === 3 || status === 1}
+              />
+            );
+          })}
+          {error && (
+            <Typography color="error" variant="caption">
+              {error}
+            </Typography>
+          )}
+        </Box>
+        <Box display="flex" alignItems="center">
+          <IconButton
+            color="primary"
+            disabled={status !== 2 || scheduleTime.length >= 3}
+            onClick={handleAddTime}
+          >
+            <AddCircle />
+          </IconButton>
+          <IconButton
+            color="primary"
+            disabled={status !== 2 || scheduleTime.length <= 1}
+            onClick={handleDeleteTime}
+          >
+            <RemoveCircle />
+          </IconButton>
+        </Box>
       </TableCell>
     </TableRow>
   );

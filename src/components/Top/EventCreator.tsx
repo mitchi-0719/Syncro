@@ -2,11 +2,11 @@ import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { DatePicker } from "../common";
 import { createEvent } from "../../api/createEvent";
-import { compareDate } from "../../function/compareDate";
 import { useNavigate } from "react-router-dom";
 import { setSeenEventIdList } from "../../function/localStorage/seenEventIdList";
 import { setCreatorIdList } from "../../function/localStorage/creatorIdList";
 import { RangeTimePicker } from "../common/RangeTimePicker";
+import { compareTime } from "../../function/compareTime";
 
 export const EventCreator = () => {
   const navigate = useNavigate();
@@ -135,7 +135,7 @@ export const EventCreator = () => {
           disabled={
             !title ||
             selectDates.length === 0 ||
-            compareDate(startTime, endTime) === -1
+            compareTime(startTime, endTime) === -1
           }
           onClick={handleClick}
         >
