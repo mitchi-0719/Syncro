@@ -4,7 +4,7 @@ export type ScheduleId = number;
 export type ScheduleTimeId = number;
 export type StatusId = 1 | 2 | 3;
 
-export type eventType = {
+export type EventType = {
   event_id: EventId;
   title: string;
   description: string;
@@ -15,41 +15,41 @@ export type eventType = {
   default_end_time: string;
 };
 
-export type dateType = {
+export type DateType = {
   event_date: string;
   start_time: string;
   end_time: string;
   date_memo: string;
 };
 
-export type userType = {
+export type UserType = {
   user_id: UserId;
   user_name: string;
   user_memo: string;
 };
 
-export type scheduleTimeType = {
+export type ScheduleTimeType = {
   schedule_time_id: ScheduleId;
   schedule_start_time: string | null;
   schedule_end_time: string | null;
 };
 
-export type scheduleType = {
+export type ScheduleType = {
   schedule_id: ScheduleTimeId;
   event_date: string;
   user_id: string;
   status_id: StatusId;
-  schedule_time: Array<scheduleTimeType>;
+  schedule_time: Array<ScheduleTimeType>;
 };
 
-export type eventDetailType = {
-  event: eventType;
-  dates: Array<dateType>;
-  users: Array<userType>;
-  schedules: Array<scheduleType>;
+export type EventDetailType = {
+  event: EventType;
+  dates: Array<DateType>;
+  users: Array<UserType>;
+  schedules: Array<ScheduleType>;
 };
 
-export type eventOverviewType = {
+export type EventOverviewType = {
   event_id: string;
   title: string;
   create_at: string;
