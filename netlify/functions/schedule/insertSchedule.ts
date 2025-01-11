@@ -61,7 +61,6 @@ export const insertSchedule = async (
       end_time: st.end_time,
     }))
   );
-  console.log(scheduleTimes);
   const { error: scheduleTimeError } = await supabase
     .from("schedule_time")
     .insert(scheduleTimes);

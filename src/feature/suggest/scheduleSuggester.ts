@@ -66,12 +66,47 @@ const getParticipantStatus = (
       schedule.status_id !== statuses[1]
         ? schedule.status_id
         : isParticipable(time, schedule.schedule_time);
-    console.log(statusKey, date, time, user.user_name);
     participantStatus[statusKey].push(
       isNotNullOrUndefined(user.user_name) ? user.user_name : ""
     );
   });
   return participantStatus;
+};
+
+const bundleSuggestValue = (
+  attendees: {
+    date: string;
+    time: string;
+    participantStatus: Record<number, string[]>;
+  }[]
+) => {
+  const bundledAttendees = [];
+  let currentBundle = attendees[0];
+
+  for (let i = 1; i < attendees.length; i++) {
+    const current = attendees[i];
+    const previous = attendees[i - 1];
+
+    if (
+      current.date === previous.date &&
+      current.participantStatus[statuses[0]].join() ===
+        previous.participantStatus[statuses[0]].join() &&
+      current.participantStatus[statuses[1]].join() ===
+        previous.participantStatus[statuses[1]].join() &&
+      current.participantStatus[statuses[2]].join() ===
+        previous.participantStatus[statuses[2]].join()
+    ) {
+      currentBundle.time = `${currentBundle.time.split("~")[0]}~${
+        current.time
+      }`;
+    } else {
+      bundledAttendees.push(currentBundle);
+      currentBundle = current;
+    }
+  }
+
+  bundledAttendees.push(currentBundle);
+  return bundledAttendees;
 };
 
 export const scheduleSuggester = (
@@ -121,5 +156,6 @@ export const scheduleSuggester = (
         return 0;
       }
     });
-  return attendees;
+  console.log(attendees);
+  return bundleSuggestValue(attendees);
 };
