@@ -1,10 +1,11 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { EventBoard } from "./EventBoard";
 import { getCreatorIdList } from "../../function/localStorage/creatorIdList";
 import useSWR from "swr";
 import { BASE_URL } from "../../constants/const";
 import { isNullOrUndefinedOrEmptyArray } from "../../function/isNullOrUndefined";
 import { isEqualArray } from "../../function/isEqualArray";
+import { TypographyWithDivider } from "../common/TypographyWithDivider";
 
 type Props = {
   currentEventid?: string;
@@ -48,8 +49,9 @@ export const CreatedEventBoard = ({ currentEventid }: Props) => {
 
   return (
     <Box marginY={4}>
-      <Typography variant="h5">作成したイベント</Typography>
-      <Divider sx={{ marginBottom: 1 }} />
+      <TypographyWithDivider TypographyProps={{ variant: "h5" }}>
+        作成したイベント
+      </TypographyWithDivider>
       <EventBoard
         eventIdList={eventIdList}
         notDisplayEventId={currentEventid}

@@ -1,4 +1,4 @@
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { DatePicker } from "../common";
 import { createEvent } from "../../api/createEvent";
@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { setSeenEventIdList } from "../../function/localStorage/seenEventIdList";
 import { setCreatorIdList } from "../../function/localStorage/creatorIdList";
 import { RangeTimePicker } from "../common/RangeTimePicker";
-import { compareTime } from "../../function/compareTime";
+import { compareTime } from "../../function/dateTime/compareTime";
+import { TypographyWithDivider } from "../common/TypographyWithDivider";
 
 export const EventCreator = () => {
   const navigate = useNavigate();
@@ -46,25 +47,32 @@ export const EventCreator = () => {
       <Box display="flex" justifyContent="space-around" marginX={10} gap={3}>
         <Box display="flex" flexDirection="column" flex="1" gap={1}>
           <Box>
-            <Typography variant="h6">イベント名</Typography>
-            <Divider sx={{ marginBottom: 2 }} />
+            <TypographyWithDivider
+              TypographyProps={{ variant: "h6" }}
+              DividerProps={{ sx: { marginBottom: 2 } }}
+            >
+              イベント名
+            </TypographyWithDivider>
             <TextField
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="例) お誕生日会"
-              sx={{ bgcolor: "#fff", width: "100%" }}
+              sx={{ width: "100%" }}
             />
           </Box>
           <Box>
-            <Typography variant="h6">イベントの説明</Typography>
-            <Divider sx={{ marginBottom: 2 }} />
+            <TypographyWithDivider
+              TypographyProps={{ variant: "h6" }}
+              DividerProps={{ sx: { marginBottom: 2 } }}
+            >
+              イベントの説明
+            </TypographyWithDivider>
             <TextField
               value={description}
               multiline
               onChange={(e) => setDescription(e.target.value)}
               placeholder="例) お誕生日会を開催します。"
               sx={{
-                bgcolor: "#fff",
                 width: "100%",
                 height: "100%",
                 "& .MuiInputBase-root": {
@@ -81,8 +89,12 @@ export const EventCreator = () => {
         </Box>
         <Box flex="1">
           <Box>
-            <Typography variant="h6">調整する時間範囲</Typography>
-            <Divider sx={{ marginBottom: 2 }} />
+            <TypographyWithDivider
+              TypographyProps={{ variant: "h6" }}
+              DividerProps={{ sx: { marginBottom: 2 } }}
+            >
+              調整する時間範囲
+            </TypographyWithDivider>
             <RangeTimePicker
               startTime={startTime}
               endTime={endTime}
@@ -102,7 +114,6 @@ export const EventCreator = () => {
             <TextField
               value={selectDates.join("\n")}
               sx={{
-                bgcolor: "#fff",
                 height: "100%",
                 width: "100%",
                 "& .MuiInputBase-root": {
@@ -131,7 +142,7 @@ export const EventCreator = () => {
         <Button
           variant="contained"
           size="large"
-          sx={{ width: "80%", color: "#fff", fontWeight: "bold", fontSize: 24 }}
+          sx={{ width: "80%", fontWeight: "bold", fontSize: 24 }}
           disabled={
             !title ||
             selectDates.length === 0 ||

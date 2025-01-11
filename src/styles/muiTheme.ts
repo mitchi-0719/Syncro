@@ -24,10 +24,30 @@ export const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&.MuiButton-contained": {
+            fontWeight: "bold",
+            color: "#fff",
+          },
+          "&.MuiButton-outlined": {
+            backgroundColor: "#fff",
+          },
+        },
+      },
+    },
     MuiTableCell: {
       styleOverrides: {
         root: {
           padding: "8px",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#ffffff",
         },
       },
     },

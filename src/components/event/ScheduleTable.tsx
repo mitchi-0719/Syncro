@@ -9,12 +9,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { eventDetailType, scheduleType } from "../../types/eventDataType";
-import { convertDate } from "../../function/convertDate";
+import { EventDetailType, ScheduleType } from "../../types/EventDataType";
+import { convertDate } from "../../function/dateTime/convertDate";
 import { ScheduleTableRow } from "./ScheduleTableRow";
 
 type ScheduleTableProps = {
-  data: eventDetailType;
+  data: EventDetailType;
 };
 
 export const ScheduleTable = ({ data }: ScheduleTableProps) => {
@@ -102,7 +102,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
   );
 };
 
-const summarize = (schedules: scheduleType[], date: string) => {
+const summarize = (schedules: ScheduleType[], date: string) => {
   const result = {
     1: 0,
     2: 0,

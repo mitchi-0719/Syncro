@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { EventId } from "../../types/eventDataType";
+import { EventId } from "../../types/EventDataType";
 import { EventCard } from "./EventCard";
 
 type Props = {

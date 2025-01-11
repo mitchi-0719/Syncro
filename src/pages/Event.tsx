@@ -1,7 +1,7 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
-import { eventDetailType } from "../types/eventDataType";
+import { EventDetailType } from "../types/EventDataType";
 import { ScheduleInsertButton, ScheduleTable } from "../components/event";
 import { BASE_URL } from "../constants/const";
 import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
@@ -10,6 +10,8 @@ import { isNotNullOrUndefined } from "../function/isNullOrUndefined";
 import { setSeenEventIdList } from "../function/localStorage/seenEventIdList";
 import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
 import { UrlCopyButton } from "../components/common/UrlCopyButton";
+import { ScheduleSuggester } from "../components/suggest/ScheduleSuggester";
+import { TypographyWithDivider } from "../components/common/TypographyWithDivider";
 
 export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -25,7 +27,7 @@ export const Event = () => {
     fetchUrl,
     async (url) => {
       const response = await fetch(url).then((res) => res.json());
-      return response as eventDetailType | null;
+      return response as EventDetailType | null;
     },
     {
       revalidateOnFocus: false,
@@ -37,12 +39,18 @@ export const Event = () => {
   return (
     !isLoading && (
       <Box>
-        <Typography variant="h4" fontWeight="bold">
+        <TypographyWithDivider
+          TypographyProps={{ variant: "h4", fontWeight: "bold" }}
+          DividerProps={{ sx: { marginBottom: 2 } }}
+        >
           {data.event.title}
-        </Typography>
-        <Divider sx={{ marginBottom: 2 }} />
-        <Typography variant="h6">イベントの説明</Typography>
-        <Divider sx={{ marginBottom: 0.5 }} />
+        </TypographyWithDivider>
+        <TypographyWithDivider
+          TypographyProps={{ variant: "h6" }}
+          DividerProps={{ sx: { marginBottom: 0.5 } }}
+        >
+          イベントの説明
+        </TypographyWithDivider>
         <Box marginX={1} marginBottom={2} bgcolor={"#efefef"} p={1}>
           <Typography variant="caption">{data.event.description}</Typography>
         </Box>
@@ -54,9 +62,14 @@ export const Event = () => {
         </Typography>
         <ScheduleTable data={data} />
         <ScheduleInsertButton data={data} mutate={mutate} />
+        <ScheduleSuggester
+          dates={data.dates}
+          schedules={data.schedules}
+          users={data.users}
+        />
+        <UrlCopyButton url={window.location.href} />
         <PastSeenEventBoard currentEventid={eventId} />
         <CreatedEventBoard currentEventid={eventId} />
-        <UrlCopyButton url={window.location.href} />
       </Box>
     )
   );

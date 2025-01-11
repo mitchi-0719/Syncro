@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import useSWR from "swr";
-import { eventOverviewType } from "../../types/eventDataType";
+import { EventOverviewType } from "../../types/EventDataType";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/const";
 
@@ -23,7 +23,7 @@ export const EventCard = ({ eventId }: EventCardProp) => {
     fetchUrl,
     async (url) => {
       const response = await fetch(url).then((res) => res.json());
-      return response as eventOverviewType | null;
+      return response as EventOverviewType | null;
     },
     {
       revalidateOnFocus: false,

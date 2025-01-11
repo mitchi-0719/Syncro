@@ -2,7 +2,8 @@ export type EventId = string;
 export type UserId = string;
 export type ScheduleId = number;
 export type ScheduleTimeId = number;
-export type StatusId = 1 | 2 | 3;
+export const statuses = [1, 2, 3];
+export type StatusId = (typeof statuses)[number];
 
 export type EventType = {
   event_id: EventId;

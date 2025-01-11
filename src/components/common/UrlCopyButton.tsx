@@ -1,14 +1,7 @@
 import { ContentCopy } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Divider,
-  SxProps,
-  TextField,
-  Theme,
-  Typography,
-} from "@mui/material";
+import { Box, Button, SxProps, TextField, Theme } from "@mui/material";
 import { FC, useState } from "react";
+import { TypographyWithDivider } from "./TypographyWithDivider";
 
 type Props = {
   url: string;
@@ -24,8 +17,9 @@ export const UrlCopyButton: FC<Props> = ({ url, sx }) => {
 
   return (
     <Box marginY={4} sx={{ width: "100%", ...sx }}>
-      <Typography variant="h5">URLをコピー</Typography>
-      <Divider sx={{ marginBottom: 1 }} />
+      <TypographyWithDivider TypographyProps={{ variant: "h5" }}>
+        URLをコピー
+      </TypographyWithDivider>
       <Box display="flex" alignItems="center" justifyContent="center">
         <TextField
           value={url}

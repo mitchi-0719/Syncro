@@ -1,12 +1,12 @@
 import { ChangeHistory, Clear, PanoramaFishEye } from "@mui/icons-material";
 import { Box, TableCell, TableRow, Typography } from "@mui/material";
-import { dateType, scheduleType, userType } from "../../types/eventDataType";
+import { DateType, ScheduleType, UserType } from "../../types/EventDataType";
 import { FC } from "react";
 
 type ScheduleTableRowProp = {
-  dates: Array<dateType>;
-  user: userType;
-  schedules: Array<scheduleType>;
+  dates: Array<DateType>;
+  user: UserType;
+  schedules: Array<ScheduleType>;
 };
 
 export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({

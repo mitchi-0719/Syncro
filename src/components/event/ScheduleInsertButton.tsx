@@ -22,14 +22,15 @@ import {
   RemoveCircle,
 } from "@mui/icons-material";
 import { FC, MouseEvent, useState } from "react";
-import { eventDetailType, StatusId } from "../../types/eventDataType";
+import { EventDetailType, StatusId } from "../../types/EventDataType";
 import { KeyedMutator } from "swr";
 import { RangeTimePicker } from "../common/RangeTimePicker";
 import { InsertSchedule } from "../../api/InsertSchedule";
+import { TypographyWithDivider } from "../common/TypographyWithDivider";
 
 type ScheduleInsertButtonProps = {
-  data: eventDetailType;
-  mutate: KeyedMutator<eventDetailType | null>;
+  data: EventDetailType;
+  mutate: KeyedMutator<EventDetailType | null>;
 };
 
 export type InsertScheduleType = {
@@ -91,7 +92,7 @@ type ScheduleFormProps = {
   schedule: InsertScheduleType[];
   defaultStartTime: string;
   defaultEndTime: string;
-  mutate: KeyedMutator<eventDetailType | null>;
+  mutate: KeyedMutator<EventDetailType | null>;
   onClose: () => void;
 };
 
@@ -119,16 +120,24 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
         <Typography variant="h5">スケジュールを入力</Typography>
       </Box>
       <Box sx={{ marginBottom: 2 }}>
-        <Typography variant="h6">名前</Typography>
-        <Divider sx={{ marginBottom: 2 }} />
+        <TypographyWithDivider
+          TypographyProps={{ variant: "h6" }}
+          DividerProps={{ sx: { marginBottom: 2 } }}
+        >
+          名前
+        </TypographyWithDivider>
         <TextField
           value={name}
           onChange={(e) => setName(e.target.value)}
-          sx={{ width: "100%", bgcolor: "#fff" }}
+          sx={{ width: "100%" }}
         />
       </Box>
-      <Typography variant="h6">出欠を入力</Typography>
-      <Divider sx={{ marginBottom: 2 }} />
+      <TypographyWithDivider
+        TypographyProps={{ variant: "h6" }}
+        DividerProps={{ sx: { marginBottom: 2 } }}
+      >
+        出欠を入力
+      </TypographyWithDivider>
       <TableContainer>
         <Table>
           <TableHead>
@@ -163,12 +172,16 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
       </TableContainer>
       <Divider sx={{ marginBottom: 3 }} />
       <Box>
-        <Typography variant="h6">コメント</Typography>
-        <Divider sx={{ marginBottom: 2 }} />
+        <TypographyWithDivider
+          TypographyProps={{ variant: "h6" }}
+          DividerProps={{ sx: { marginBottom: 2 } }}
+        >
+          コメント
+        </TypographyWithDivider>
         <TextField
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          sx={{ width: "100%", bgcolor: "#fff" }}
+          sx={{ width: "100%" }}
         />
       </Box>
       <Box display="flex" justifyContent="center">
@@ -288,59 +301,61 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
           </ToggleButton>
         </ToggleButtonGroup>
       </TableCell>
-      <TableCell sx={{ display: "flex" }}>
-        <Box display="flex" flexDirection="column" gap={1}>
-          {scheduleTime.map((t, index) => {
-            return (
-              <RangeTimePicker
-                key={index}
-                startTime={t.start_time ?? ""}
-                endTime={t.end_time ?? ""}
-                setStartTime={(time) =>
-                  setSchedule({
-                    date,
-                    status,
-                    scheduleTime: scheduleTime.map((st, i) =>
-                      i === index ? { ...st, start_time: time } : st
-                    ),
-                  })
-                }
-                setEndTime={(time) =>
-                  setSchedule({
-                    date,
-                    status,
-                    scheduleTime: scheduleTime.map((st, i) =>
-                      i === index ? { ...st, end_time: time } : st
-                    ),
-                  })
-                }
-                minTime={defaultStartTime}
-                maxTime={defaultEndTime}
-                disabled={status === 3 || status === 1}
-              />
-            );
-          })}
-          {error && (
-            <Typography color="error" variant="caption">
-              {error}
-            </Typography>
-          )}
-        </Box>
-        <Box display="flex" alignItems="center">
-          <IconButton
-            color="primary"
-            disabled={status !== 2 || scheduleTime.length >= 3}
-            onClick={handleAddTime}
-          >
-            <AddCircle />
-          </IconButton>
-          <IconButton
-            color="primary"
-            disabled={status !== 2 || scheduleTime.length <= 1}
-            onClick={handleDeleteTime}
-          >
-            <RemoveCircle />
-          </IconButton>
+      <TableCell>
+        <Box display="flex">
+          <Box display="flex" flexDirection="column" gap={1}>
+            {scheduleTime.map((t, index) => {
+              return (
+                <RangeTimePicker
+                  key={index}
+                  startTime={t.start_time ?? ""}
+                  endTime={t.end_time ?? ""}
+                  setStartTime={(time) =>
+                    setSchedule({
+                      date,
+                      status,
+                      scheduleTime: scheduleTime.map((st, i) =>
+                        i === index ? { ...st, start_time: time } : st
+                      ),
+                    })
+                  }
+                  setEndTime={(time) =>
+                    setSchedule({
+                      date,
+                      status,
+                      scheduleTime: scheduleTime.map((st, i) =>
+                        i === index ? { ...st, end_time: time } : st
+                      ),
+                    })
+                  }
+                  minTime={defaultStartTime}
+                  maxTime={defaultEndTime}
+                  disabled={status === 3 || status === 1}
+                />
+              );
+            })}
+            {error && (
+              <Typography color="error" variant="caption">
+                {error}
+              </Typography>
+            )}
+          </Box>
+          <Box display="flex" alignItems="center">
+            <IconButton
+              color="primary"
+              disabled={status !== 2 || scheduleTime.length >= 3}
+              onClick={handleAddTime}
+            >
+              <AddCircle />
+            </IconButton>
+            <IconButton
+              color="primary"
+              disabled={status !== 2 || scheduleTime.length <= 1}
+              onClick={handleDeleteTime}
+            >
+              <RemoveCircle />
+            </IconButton>
+          </Box>
         </Box>
       </TableCell>
     </TableRow>
