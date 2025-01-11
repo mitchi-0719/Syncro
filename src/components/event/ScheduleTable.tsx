@@ -103,7 +103,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
 };
 
 const summarize = (schedules: ScheduleType[], date: string) => {
-  const result = {
+  const result: { [key: number]: number } = {
     1: 0,
     2: 0,
     3: 0,
