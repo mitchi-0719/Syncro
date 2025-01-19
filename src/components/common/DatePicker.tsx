@@ -1,13 +1,22 @@
 import { FC, useState } from "react";
+
 import { Box, Button, Grid, Typography } from "@mui/material";
+
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
 import {
   KeyboardDoubleArrowLeft,
   KeyboardDoubleArrowRight,
 } from "@mui/icons-material";
 
 dayjs.extend(localizedFormat);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault("Asia/Tokyo");
 
 interface DatePickerProps {
   value?: string[];
@@ -22,7 +31,8 @@ export const DatePicker: FC<DatePickerProps> = ({
   minDate,
   maxDate,
 }) => {
-  const [currentDate, setCurrentDate] = useState(dayjs());
+  const weekConst = ["日", "月", "火", "水", "木", "金", "土"];
+  const [currentDate, setCurrentDate] = useState(dayjs.tz());
   const [selectedDates, setSelectedDates] = useState<Set<string>>(
     new Set(value)
   );
@@ -81,6 +91,9 @@ export const DatePicker: FC<DatePickerProps> = ({
           color="secondary"
           onClick={handlePrevMonth}
           startIcon={<KeyboardDoubleArrowLeft />}
+          disabled={
+            !!minDate && currentDate.startOf("month").isBefore(minDate, "day")
+          }
         >
           前月
         </Button>
@@ -92,12 +105,15 @@ export const DatePicker: FC<DatePickerProps> = ({
           color="secondary"
           onClick={handleNextMonth}
           endIcon={<KeyboardDoubleArrowRight />}
+          disabled={
+            !!maxDate && currentDate.endOf("month").isAfter(maxDate, "day")
+          }
         >
           翌月
         </Button>
       </Box>
       <Grid container columns={7} sx={{ mb: 1 }}>
-        {["日", "月", "火", "水", "木", "金", "土"].map((day) => (
+        {weekConst.map((day) => (
           <Grid item xs={1} key={day}>
             <Typography
               variant="body2"
