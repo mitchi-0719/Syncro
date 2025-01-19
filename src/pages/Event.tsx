@@ -17,12 +17,6 @@ export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
   const fetchUrl = `${BASE_URL}event/detail/${eventId}`;
 
-  useEffect(() => {
-    if (isNotNullOrUndefined(eventId)) {
-      setSeenEventIdList(eventId);
-    }
-  }, [eventId]);
-
   const { data, error, isLoading, mutate } = useSWR(
     fetchUrl,
     async (url) => {
@@ -34,6 +28,12 @@ export const Event = () => {
       revalidateOnReconnect: false,
     }
   );
+
+  useEffect(() => {
+    if (isNotNullOrUndefined(eventId) && !(!data || error)) {
+      setSeenEventIdList(eventId);
+    }
+  }, [eventId, data, error]);
 
   if (!data || error) return null;
   return (
