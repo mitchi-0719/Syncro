@@ -1,7 +1,7 @@
 import { getRandomId } from "../functions/getRandomId";
 import { InsertScheduleBodyType } from "../types/InsertScheduleBody";
-import { supabase } from "../util/supabase";
 import { errorResponse } from "../util/errorResponse";
+import { supabase } from "../util/supabase";
 
 export const insertSchedule = async (
   eventId: string,

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Top } from "./pages/Top";
-import { Event } from "./pages/Event";
 import { Admin } from "./pages/Admin";
+import { Event } from "./pages/Event";
 import { NotFound } from "./pages/NotFound";
+import { Top } from "./pages/Top";
 
 export const Router = () => {
   return (

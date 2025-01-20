@@ -1,6 +1,6 @@
 import { parseDetailData } from "../functions/parseDetailData";
-import { supabase } from "../util/supabase";
 import { errorResponse } from "../util/errorResponse";
+import { supabase } from "../util/supabase";
 
 export const getDetail = async (event_id: string) => {
   if (!event_id) {

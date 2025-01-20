@@ -1,7 +1,7 @@
 import { Box, CssBaseline } from "@mui/material";
+import { Footer, Header } from "./components/common";
 import { Provider } from "./provider/Provider";
 import { Router } from "./Router";
-import { Footer, Header } from "./components/common";
 
 const App = () => {
   return (

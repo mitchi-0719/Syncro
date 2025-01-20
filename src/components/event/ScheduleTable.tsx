@@ -9,8 +9,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { EventDetailType, ScheduleType } from "../../types/EventDataType";
 import { convertDate } from "../../function/dateTime/convertDate";
+import { EventDetailType, ScheduleType } from "../../types/EventDataType";
 import { ScheduleTableRow } from "./ScheduleTableRow";
 
 type ScheduleTableProps = {

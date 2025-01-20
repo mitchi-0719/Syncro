@@ -6,10 +6,10 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import useSWR from "swr";
-import { EventOverviewType } from "../../types/EventDataType";
 import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
 import { BASE_URL } from "../../constants/const";
+import { EventOverviewType } from "../../types/EventDataType";
 import { swrFetcher } from "../../util/swrFetcher";
 
 type EventCardProp = {

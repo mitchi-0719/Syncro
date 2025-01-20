@@ -4,8 +4,8 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 
 import {
   KeyboardDoubleArrowLeft,
@@ -154,15 +154,15 @@ export const DatePicker: FC<DatePickerProps> = ({
                   bgcolor: isSelected
                     ? "secondary.main"
                     : isDisabled
-                    ? "#f0f0f0"
-                    : "transparent",
+                      ? "#f0f0f0"
+                      : "transparent",
                   color: isSelected ? "#fff" : isDisabled ? "#ccc" : "inherit",
                   "&:hover": {
                     bgcolor: isDisabled
                       ? "#f0f0f0"
                       : isSelected
-                      ? "secondary.main"
-                      : "secondary.light",
+                        ? "secondary.main"
+                        : "secondary.light",
                     color: isDisabled ? "#ccc" : "#fff",
                   },
                 }}
