@@ -21,7 +21,7 @@ export const Event = () => {
 
   const { data, error, isLoading, mutate } = useSWR(
     fetchUrl,
-    swrFetcher<EventDetailType | null>
+    swrFetcher<EventDetailType | null>,
   );
 
   useEffect(() => {

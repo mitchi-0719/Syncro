@@ -1,8 +1,8 @@
 import { Handler } from "@netlify/functions";
 import { parseRequest } from "../functions/parseRequest";
 import { isMethodType, MethodType } from "../types/MethodType";
-import { insertSchedule } from "./insertSchedule";
 import { errorResponse } from "../util/errorResponse";
+import { insertSchedule } from "./insertSchedule";
 
 export const handler: Handler = async (event) => {
   const { paths, method, body } = parseRequest(event);

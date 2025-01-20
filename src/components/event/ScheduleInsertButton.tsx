@@ -1,4 +1,11 @@
 import {
+  AddCircle,
+  Cancel,
+  ChangeHistory,
+  PanoramaFishEye,
+  RemoveCircle,
+} from "@mui/icons-material";
+import {
   Box,
   Button,
   Divider,
@@ -14,18 +21,11 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import {
-  AddCircle,
-  Cancel,
-  ChangeHistory,
-  PanoramaFishEye,
-  RemoveCircle,
-} from "@mui/icons-material";
 import { FC, MouseEvent, useState } from "react";
-import { EventDetailType, StatusId } from "../../types/EventDataType";
 import { KeyedMutator } from "swr";
-import { RangeTimePicker } from "../common/RangeTimePicker";
 import { InsertSchedule } from "../../api/InsertSchedule";
+import { EventDetailType, StatusId } from "../../types/EventDataType";
+import { RangeTimePicker } from "../common/RangeTimePicker";
 import { TypographyWithDivider } from "../common/TypographyWithDivider";
 
 type ScheduleInsertButtonProps = {
@@ -221,8 +221,8 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
       value === 3
         ? [{ start_time: null, end_time: null }]
         : value === 1
-        ? [{ start_time: defaultStartTime, end_time: defaultEndTime }]
-        : scheduleTime;
+          ? [{ start_time: defaultStartTime, end_time: defaultEndTime }]
+          : scheduleTime;
     setSchedule({ date, status: value, scheduleTime: newScheduleTime });
   };
 

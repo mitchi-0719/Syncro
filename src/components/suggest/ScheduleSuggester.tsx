@@ -1,9 +1,9 @@
+import { ContentCopy } from "@mui/icons-material";
 import { Box, Button, MenuItem, Select, TextField } from "@mui/material";
 import { FC, useCallback, useEffect, useState } from "react";
-import { TypographyWithDivider } from "../common/TypographyWithDivider";
-import { ContentCopy } from "@mui/icons-material";
 import { scheduleSuggester } from "../../feature/suggest/scheduleSuggester";
 import { DateType, ScheduleType, UserType } from "../../types/EventDataType";
+import { TypographyWithDivider } from "../common/TypographyWithDivider";
 
 type Props = {
   dates: DateType[];

@@ -1,11 +1,11 @@
 import { Handler } from "@netlify/functions";
 import { parseRequest } from "../functions/parseRequest";
 import { isMethodType, MethodType } from "../types/MethodType";
-import { getOverview } from "./getOverview";
-import { getDetail } from "./getDetail";
-import { insertEvent } from "./insertEvent";
-import { getCreateEventList } from "./getCreateEventList";
 import { errorResponse } from "../util/errorResponse";
+import { getCreateEventList } from "./getCreateEventList";
+import { getDetail } from "./getDetail";
+import { getOverview } from "./getOverview";
+import { insertEvent } from "./insertEvent";
 
 export const handler: Handler = async (event) => {
   const { paths, query, method, body } = parseRequest(event);

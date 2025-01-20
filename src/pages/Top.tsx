@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { EventCreator } from "../components/Top/EventCreator";
-import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
-import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
 import { TypographyWithDivider } from "../components/common/TypographyWithDivider";
+import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
+import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
 
 export const Top = () => {
   return (

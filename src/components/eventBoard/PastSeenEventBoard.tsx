@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import { EventBoard } from "./EventBoard";
-import { getSeenEventIdList } from "../../function/localStorage/seenEventIdList";
 import { isEqualArray } from "../../function/isEqualArray";
 import { isNullOrUndefinedOrEmptyArray } from "../../function/isNullOrUndefined";
+import { getSeenEventIdList } from "../../function/localStorage/seenEventIdList";
 import { TypographyWithDivider } from "../common/TypographyWithDivider";
+import { EventBoard } from "./EventBoard";
 
 type Props = {
   currentEventid?: string;

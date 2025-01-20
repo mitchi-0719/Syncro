@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
-import { EventBoard } from "./EventBoard";
-import { getCreatorIdList } from "../../function/localStorage/creatorIdList";
+import { useMemo } from "react";
 import useSWR from "swr";
 import { BASE_URL } from "../../constants/const";
-import { isNullOrUndefinedOrEmptyArray } from "../../function/isNullOrUndefined";
 import { isEqualArray } from "../../function/isEqualArray";
-import { TypographyWithDivider } from "../common/TypographyWithDivider";
-import { useMemo } from "react";
+import { isNullOrUndefinedOrEmptyArray } from "../../function/isNullOrUndefined";
+import { getCreatorIdList } from "../../function/localStorage/creatorIdList";
 import { swrFetcher } from "../../util/swrFetcher";
+import { TypographyWithDivider } from "../common/TypographyWithDivider";
+import { EventBoard } from "./EventBoard";
 
 type Props = {
   currentEventid?: string;
