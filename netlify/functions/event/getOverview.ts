@@ -1,11 +1,9 @@
+import { errorResponse } from "../util/errorResponse";
 import { supabase } from "../util/supabase";
 
 export const getOverview = async (event_id: string) => {
   if (!event_id) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "Missing event_id" }),
-    };
+    return errorResponse(400, "Bad Request: event_id is required");
   }
 
   try {
@@ -16,17 +14,11 @@ export const getOverview = async (event_id: string) => {
 
     if (error) {
       console.error("Supabase Query Error:", error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: error.message }),
-      };
+      return errorResponse(500, "Internal Server Error");
     }
 
     if (!data || data.length === 0) {
-      return {
-        statusCode: 404,
-        body: JSON.stringify({ error: "Event not found" }),
-      };
+      return errorResponse(404, "Not Found: event_id is not found");
     }
 
     return {
@@ -35,9 +27,6 @@ export const getOverview = async (event_id: string) => {
     };
   } catch (err) {
     console.error("Transaction Error:", err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal Server Error" }),
-    };
+    return errorResponse(500, "Internal Server Error");
   }
 };

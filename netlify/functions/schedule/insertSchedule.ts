@@ -1,6 +1,7 @@
 import { getRandomId } from "../functions/getRandomId";
 import { InsertScheduleBodyType } from "../types/InsertScheduleBody";
 import { supabase } from "../util/supabase";
+import { errorResponse } from "../util/errorResponse";
 
 export const insertSchedule = async (
   eventId: string,
@@ -14,10 +15,7 @@ export const insertSchedule = async (
 
   if (userError) {
     console.error("Supabase Insert Error:", userError);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: userError.message }),
-    };
+    return errorResponse(500, `Internal Server Error: ${userError.message}`);
   }
 
   const { error: userEventError } = await supabase.from("user_event").insert({
@@ -28,10 +26,10 @@ export const insertSchedule = async (
 
   if (userEventError) {
     console.error("Supabase Insert Error:", userEventError);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: userEventError.message }),
-    };
+    return errorResponse(
+      500,
+      `Internal Server Error: ${userEventError.message}`
+    );
   }
 
   const schedule = body.schedule.map((s) => ({
@@ -48,10 +46,10 @@ export const insertSchedule = async (
 
   if (scheduleError) {
     console.error("Supabase Insert Error:", scheduleError);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: scheduleError.message }),
-    };
+    return errorResponse(
+      500,
+      `Internal Server Error: ${scheduleError.message}`
+    );
   }
 
   const scheduleTimes = body.schedule.flatMap((s) =>
@@ -67,10 +65,10 @@ export const insertSchedule = async (
 
   if (scheduleTimeError) {
     console.error("Supabase Insert Error:", scheduleTimeError);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: scheduleTimeError.message }),
-    };
+    return errorResponse(
+      500,
+      `Internal Server Error: ${scheduleTimeError.message}`
+    );
   }
 
   return {
