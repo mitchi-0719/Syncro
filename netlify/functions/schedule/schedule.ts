@@ -2,14 +2,12 @@ import { Handler } from "@netlify/functions";
 import { parseRequest } from "../functions/parseRequest";
 import { isMethodType, MethodType } from "../types/MethodType";
 import { insertSchedule } from "./insertSchedule";
+import { errorResponse } from "../util/errorResponse";
 
 export const handler: Handler = async (event) => {
   const { paths, method, body } = parseRequest(event);
   if (!isMethodType(method)) {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ message: "Method Not Allowed" }),
-    };
+    return errorResponse(405, "Method Not Allowed");
   }
 
   const results = await router(paths, method, body);
@@ -21,15 +19,9 @@ const router = async (paths: Array<string>, method: MethodType, body: any) => {
     if (paths[0] === "schedule") {
       return insertSchedule(paths[1], body);
     } else {
-      return {
-        statusCode: 404,
-        body: JSON.stringify({ message: "Not Found" }),
-      };
+      return errorResponse(400, "Bad Request");
     }
   } else {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ message: "Method Not Allowed" }),
-    };
+    return errorResponse(405, "Method Not Allowed");
   }
 };

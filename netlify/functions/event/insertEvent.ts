@@ -1,5 +1,6 @@
 import { getRandomId } from "../functions/getRandomId";
 import { CreateEventBodyType } from "../types/CreateEventBody";
+import { errorResponse } from "../util/errorResponse";
 import { supabase } from "../util/supabase";
 
 export const insertEvent = async (body: CreateEventBodyType) => {
@@ -22,10 +23,7 @@ export const insertEvent = async (body: CreateEventBodyType) => {
 
   if (error) {
     console.error("Supabase Insert Error:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
-    };
+    return errorResponse(500, `Internal Server Error: ${error.message}`);
   }
 
   const dateData = dates.map((date) => {
@@ -42,10 +40,7 @@ export const insertEvent = async (body: CreateEventBodyType) => {
 
   if (dateError) {
     console.error("Supabase Insert Error:", dateError);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: dateError.message }),
-    };
+    return errorResponse(500, `Internal Server Error: ${dateError.message}`);
   }
 
   return {

@@ -5,14 +5,12 @@ import { getOverview } from "./getOverview";
 import { getDetail } from "./getDetail";
 import { insertEvent } from "./insertEvent";
 import { getCreateEventList } from "./getCreateEventList";
+import { errorResponse } from "../util/errorResponse";
 
 export const handler: Handler = async (event) => {
   const { paths, query, method, body } = parseRequest(event);
   if (!isMethodType(method)) {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ message: "Method Not Allowed" }),
-    };
+    return errorResponse(405, "Method Not Allowed");
   }
 
   const results = await router(paths, query, method, body);
@@ -42,9 +40,6 @@ const router = async (
     case "DELETE":
       break;
     default:
-      return {
-        statusCode: 405,
-        body: JSON.stringify({ message: "Method Not Allowed" }),
-      };
+      return errorResponse(405, "Method Not Allowed");
   }
 };

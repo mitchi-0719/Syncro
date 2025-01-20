@@ -1,3 +1,4 @@
+import { errorResponse } from "../util/errorResponse";
 import { supabase } from "../util/supabase";
 
 export const getCreateEventList = async (creatorIdList: string[]) => {
@@ -9,10 +10,7 @@ export const getCreateEventList = async (creatorIdList: string[]) => {
 
     if (error) {
       console.error("Supabase Query Error:", error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: error.message }),
-      };
+      return errorResponse(500, `Internal Server Error: ${error.message}`);
     }
 
     const eventIdList = data.map((d) => d.event_id);
@@ -22,9 +20,6 @@ export const getCreateEventList = async (creatorIdList: string[]) => {
     };
   } catch (error) {
     console.error("Transaction Error:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal Server Error" }),
-    };
+    return errorResponse(500, `Internal Server Error: ${error.message}`);
   }
 };
