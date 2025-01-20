@@ -12,6 +12,8 @@ import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
 import { UrlCopyButton } from "../components/common/UrlCopyButton";
 import { ScheduleSuggester } from "../components/suggest/ScheduleSuggester";
 import { TypographyWithDivider } from "../components/common/TypographyWithDivider";
+import { swrFetcher } from "../util/swrFetcher";
+import { NotFound } from "./NotFound";
 
 export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -19,14 +21,7 @@ export const Event = () => {
 
   const { data, error, isLoading, mutate } = useSWR(
     fetchUrl,
-    async (url) => {
-      const response = await fetch(url).then((res) => res.json());
-      return response as EventDetailType | null;
-    },
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
+    swrFetcher<EventDetailType | null>
   );
 
   useEffect(() => {
@@ -35,7 +30,7 @@ export const Event = () => {
     }
   }, [eventId, data, error]);
 
-  if (!data || error) return null;
+  if (!data || error) return <NotFound />;
   return (
     !isLoading && (
       <Box>
