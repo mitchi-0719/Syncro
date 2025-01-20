@@ -10,6 +10,7 @@ import useSWR from "swr";
 import { EventOverviewType } from "../../types/EventDataType";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/const";
+import { swrFetcher } from "../../util/swrFetcher";
 
 type EventCardProp = {
   eventId: string;
@@ -21,14 +22,7 @@ export const EventCard = ({ eventId }: EventCardProp) => {
   const fetchUrl = `${BASE_URL}event/overview/${eventId}`;
   const { data, error, isLoading } = useSWR(
     fetchUrl,
-    async (url) => {
-      const response = await fetch(url).then((res) => res.json());
-      return response as EventOverviewType | null;
-    },
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
+    swrFetcher<EventOverviewType | null>
   );
   if (!data || error) return null;
 
