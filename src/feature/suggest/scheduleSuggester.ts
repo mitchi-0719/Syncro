@@ -156,6 +156,6 @@ export const scheduleSuggester = (
         return 0;
       }
     });
-  console.log(attendees);
+  // console.log(attendees);
   return bundleSuggestValue(attendees);
 };

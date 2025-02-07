@@ -22,7 +22,10 @@ export const createEvent = async (
       date.endTime = defaultEndTime;
     }
   });
-  const response = await fetch(`${BASE_URL}event`, {
+  const response = await fetch(`${BASE_URL}events`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
     method: "POST",
     body: JSON.stringify({
       title,
