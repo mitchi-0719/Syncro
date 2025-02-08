@@ -1,26 +1,20 @@
-import { Handler } from "@netlify/functions";
-import { insertEvent } from "../event/insertEvent";
+import express, { Request, Response } from "express";
+import serverless from "serverless-http";
 
-export const handler: Handler = async (event) => {
-  const body = {
-    title: "api-test",
-    description: "stringstringstringstringstring",
-    defaultStartTime: "10:00",
-    defaultEndTime: "20:00",
-    dates: [
-      {
-        eventDate: "2024-12-24",
-        startTime: "10:00",
-        endTime: "20:00",
-        memo: "memomomomomommomo",
-      },
-      {
-        eventDate: "2024-12-25",
-        startTime: "11:00",
-        endTime: "21:00",
-        memo: "memomomomomommomo",
-      },
-    ],
-  };
-  return insertEvent(body);
-};
+export const app = express();
+const router = express.Router();
+app.use(`/.netlify/functions/test`, router);
+export const handler = serverless(app);
+
+router.get("/", (req: Request, res: Response) => {
+  res.json({
+    message: "Hello World",
+  });
+});
+
+router.get("/hi/:name", (req: Request, res: Response) => {
+  res.json({
+    message: `Hi! ${req.params.name}`,
+  });
+});
+

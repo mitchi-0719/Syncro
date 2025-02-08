@@ -17,11 +17,11 @@ import { NotFound } from "./NotFound";
 
 export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
-  const fetchUrl = `${BASE_URL}event/detail/${eventId}`;
+  const fetchUrl = `${BASE_URL}events/${eventId}/detail`;
 
   const { data, error, isLoading, mutate } = useSWR(
     fetchUrl,
-    swrFetcher<EventDetailType | null>,
+    swrFetcher<EventDetailType | null>
   );
 
   useEffect(() => {

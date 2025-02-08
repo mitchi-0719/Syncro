@@ -7,7 +7,10 @@ export const InsertSchedule = async (
   schedule: InsertScheduleType[],
   comment: string
 ) => {
-  const response = await fetch(`${BASE_URL}schedule/${eventId}`, {
+  const response = await fetch(`${BASE_URL}schedules/${eventId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
     method: "POST",
     body: JSON.stringify({
       eventId,

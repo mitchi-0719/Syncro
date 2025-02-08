@@ -19,7 +19,7 @@ type EventCardProp = {
 export const EventCard = ({ eventId }: EventCardProp) => {
   const navigate = useNavigate();
 
-  const fetchUrl = `${BASE_URL}event/overview/${eventId}`;
+  const fetchUrl = `${BASE_URL}events/${eventId}`;
   const { data, error, isLoading } = useSWR(
     fetchUrl,
     swrFetcher<EventOverviewType | null>
