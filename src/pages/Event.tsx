@@ -50,7 +50,9 @@ export const Event = () => {
           イベントの説明
         </TypographyWithDivider>
         <Box marginX={1} marginBottom={2} bgcolor={"#efefef"} p={1}>
-          <Typography variant="caption">{data.event.description}</Typography>
+          <Typography variant="caption" sx={{ whiteSpace: "pre-wrap" }}>
+            {data.event.description}
+          </Typography>
         </Box>
         <Typography variant="h6">
           スケジュール

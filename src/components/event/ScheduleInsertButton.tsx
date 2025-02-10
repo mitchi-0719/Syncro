@@ -181,6 +181,7 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
         <TextField
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          multiline
           sx={{ width: "100%" }}
         />
       </Box>
@@ -221,8 +222,8 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
       value === 3
         ? [{ start_time: null, end_time: null }]
         : value === 1
-          ? [{ start_time: defaultStartTime, end_time: defaultEndTime }]
-          : scheduleTime;
+        ? [{ start_time: defaultStartTime, end_time: defaultEndTime }]
+        : scheduleTime;
     setSchedule({ date, status: value, scheduleTime: newScheduleTime });
   };
 
