@@ -14,6 +14,7 @@ import { ScheduleSuggester } from "../components/suggest/ScheduleSuggester";
 import { TypographyWithDivider } from "../components/common/TypographyWithDivider";
 import { swrFetcher } from "../util/swrFetcher";
 import { NotFound } from "./NotFound";
+import { Loading } from "./Loading";
 
 export const Event = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -29,6 +30,8 @@ export const Event = () => {
       setSeenEventIdList(eventId);
     }
   }, [eventId, data, error]);
+
+  if (isLoading) return <Loading />;
 
   if (!data || error) return <NotFound />;
   return (
