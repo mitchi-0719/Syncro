@@ -14,6 +14,7 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
   user,
   schedules,
 }) => {
+  console.log(user.user_memo);
   return (
     <TableRow>
       <TableCell sx={{ borderRight: 3, borderColor: "grey.300" }}>
@@ -62,7 +63,7 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
           </TableCell>
         );
       })}
-      <TableCell sx={{ textAlign: "center" }}>
+      <TableCell sx={{ textAlign: "center", whiteSpace: "pre-wrap" }}>
         {user.user_memo ? user.user_memo : "-"}
       </TableCell>
     </TableRow>
