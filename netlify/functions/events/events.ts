@@ -28,7 +28,6 @@ router.get("/:event_id/detail", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  console.log(req.headers);
   const results = await insertEvent(req.body);
   res.status(results.statusCode).json(results.body);
 });

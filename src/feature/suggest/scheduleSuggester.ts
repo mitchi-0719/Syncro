@@ -3,7 +3,7 @@ import { isInRangeTime } from "../../function/dateTime/isInRangeTime";
 import {
   isNotNullOrUndefined,
   isNullOrUndefined,
-} from "../../function/isNullOrUndefined";
+} from "../../util/isNullOrUndefined";
 import {
   DateType,
   ScheduleTimeType,
@@ -156,6 +156,5 @@ export const scheduleSuggester = (
         return 0;
       }
     });
-  // console.log(attendees);
   return bundleSuggestValue(attendees);
 };

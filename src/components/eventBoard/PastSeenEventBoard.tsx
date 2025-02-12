@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { isEqualArray } from "../../function/isEqualArray";
-import { isNullOrUndefinedOrEmptyArray } from "../../function/isNullOrUndefined";
+import { isEqualArray } from "../../util/isEqualArray";
+import { isNullOrUndefinedOrEmptyArray } from "../../util/isNullOrUndefined";
 import { getSeenEventIdList } from "../../function/localStorage/seenEventIdList";
 import { TypographyWithDivider } from "../common/TypographyWithDivider";
 import { EventBoard } from "./EventBoard";
