@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import serverless from "serverless-http";
-import { getOverview } from "../event/getOverview";
-import { getDetail } from "../event/getDetail";
-import { getCreateEventList } from "../event/getCreateEventList";
-import { insertEvent } from "../event/insertEvent";
+import { getCreateEventList } from "./getCreateEventList";
+import { getOverview } from "./getOverview";
+import { getDetail } from "./getDetail";
+import { insertEvent } from "./insertEvent";
 
 export const app = express();
 app.use(express.json());

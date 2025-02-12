@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import serverless from "serverless-http";
-import { insertSchedule } from "../schedule/insertSchedule";
+import { insertSchedule } from "./insertSchedule";
 
 export const app = express();
 app.use(express.json());
