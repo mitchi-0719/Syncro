@@ -14,7 +14,6 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
   user,
   schedules,
 }) => {
-  console.log(user.user_memo);
   return (
     <TableRow>
       <TableCell sx={{ borderRight: 3, borderColor: "grey.300" }}>

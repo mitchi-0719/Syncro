@@ -6,7 +6,7 @@ import { ScheduleInsertButton, ScheduleTable } from "../components/event";
 import { BASE_URL } from "../constants/const";
 import { PastSeenEventBoard } from "../components/eventBoard/PastSeenEventBoard";
 import { useEffect } from "react";
-import { isNotNullOrUndefined } from "../function/isNullOrUndefined";
+import { isNotNullOrUndefined } from "../util/isNullOrUndefined";
 import { setSeenEventIdList } from "../function/localStorage/seenEventIdList";
 import { CreatedEventBoard } from "../components/eventBoard/CreatedEventBoard";
 import { UrlCopyButton } from "../components/common/UrlCopyButton";
