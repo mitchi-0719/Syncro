@@ -19,7 +19,7 @@ export const Header = () => {
         }}
       >
         <Link href="/" color="inherit" underline="none">
-          Syncro
+          Syncro: develop
         </Link>
       </Typography>
     </AppBar>
