@@ -1,11 +1,35 @@
 {
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always",
-    /* import文の 自動追加 */
-    "source.addMissingImports": "always"
-    /* import文の 自動未使用import削除 & 自動アルファベット順ソート */
-    // "source.organizeImports": "always"
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
   },
-  "cSpell.words": ["Participable", "supabase", "syncro"]
+  "cSpell.words": [
+    "Participable",
+    "supabase",
+    "syncro"
+  ],
+  "deno.enable": true,
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": [
+    "bare-node-builtins",
+    "byonm",
+    "sloppy-imports",
+    "unsafe-proto",
+    "webgpu",
+    "broadcast-channel",
+    "worker-options",
+    "cron",
+    "kv",
+    "ffi",
+    "fs",
+    "http",
+    "net"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "always",
+    "source.fixAll.eslint": "always"
+  },
+  "editor.formatOnSave": true
 }
