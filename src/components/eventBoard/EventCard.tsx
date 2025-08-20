@@ -26,7 +26,7 @@ export const EventCard = ({ eventId }: EventCardProp) => {
   );
   if (!data || error) return null;
 
-  const { title: eventTitle, create_at: createDate } = data;
+  const { title: eventTitle, createAt: createDate } = data;
   return (
     !isLoading && (
       <Card sx={{ width: "240px", m: 1 }}>

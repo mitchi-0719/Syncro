@@ -57,7 +57,7 @@ export const Event = () => {
         <Typography variant="h6">
           スケジュール
           <Typography variant="caption">
-            {`（調整時間 ${data.event.default_start_time}~${data.event.default_end_time}）`}
+            {`（調整時間 ${data.event.defaultStartTime}~${data.event.defaultEndTime}）`}
           </Typography>
         </Typography>
         <ScheduleTable data={data} />

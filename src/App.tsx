@@ -3,7 +3,7 @@ import { Footer, Header } from "./components/common";
 import { Provider } from "./provider/Provider";
 import { Router } from "./Router";
 
-const App = () => {
+export const App = () => {
   return (
     <Provider>
       <CssBaseline />
@@ -17,5 +17,3 @@ const App = () => {
     </Provider>
   );
 };
-
-export default App;

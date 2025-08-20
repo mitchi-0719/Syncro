@@ -55,8 +55,8 @@ export const insertSchedule = async (
   const scheduleTimes = body.schedule.flatMap((s) =>
     s.scheduleTime.map((st) => ({
       schedule_id: data.find((d) => d.event_date === s.date)?.schedule_id,
-      start_time: st.start_time,
-      end_time: st.end_time,
+      start_time: st.startTime,
+      end_time: st.endTime,
     }))
   );
   const { error: scheduleTimeError } = await supabase

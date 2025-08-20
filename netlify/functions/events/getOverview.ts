@@ -1,8 +1,9 @@
 import { errorResponse } from "../util/errorResponse";
 import { supabase } from "../util/supabase";
+import { toLowerCamelCase } from "../util/toLowerCamelCase";
 
-export const getOverview = async (event_id: string) => {
-  if (!event_id) {
+export const getOverview = async (eventId: string) => {
+  if (!eventId) {
     return errorResponse(400, "Bad Request: event_id is required");
   }
 
@@ -10,7 +11,7 @@ export const getOverview = async (event_id: string) => {
     const { data, error } = await supabase
       .from("event")
       .select("event_id, title, create_at")
-      .eq("event_id", event_id);
+      .eq("event_id", eventId);
 
     if (error) {
       console.error("Supabase Query Error:", error);
@@ -18,12 +19,15 @@ export const getOverview = async (event_id: string) => {
     }
 
     if (!data || data.length === 0) {
-      return errorResponse(404, "Not Found: event_id is not found");
+      return errorResponse(404, `Not Found: ${eventId} is not found`);
     }
 
     return {
       statusCode: 200,
-      body: data[0],
+      body: Object.entries(data[0]).reduce((acc, [key, value]) => {
+        acc[toLowerCamelCase(key)] = value;
+        return acc;
+      }, {}),
     };
   } catch (err) {
     console.error("Transaction Error:", err);

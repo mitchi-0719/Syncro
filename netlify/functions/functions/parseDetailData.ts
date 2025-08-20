@@ -6,13 +6,13 @@ import {
 
 export const parseDetailData = (data: EventDetail[]) => {
   const event = {
-    event_id: data[0].event_id,
+    eventId: data[0].event_id,
     title: data[0].title,
     description: data[0].description,
-    create_at: data[0].create_at,
-    last_update_at: data[0].last_update_at,
-    default_start_time: formatTime(data[0].default_start_time),
-    default_end_time: formatTime(data[0].default_end_time),
+    createAt: data[0].create_at,
+    lastUpdateAt: data[0].last_update_at,
+    defaultStartTime: formatTime(data[0].default_start_time),
+    defaultEndTime: formatTime(data[0].default_end_time),
   };
 
   const dates = {};
@@ -24,10 +24,10 @@ export const parseDetailData = (data: EventDetail[]) => {
       isNullOrUndefined(dates[d.event_date])
     ) {
       dates[d.event_date] = {
-        event_date: d.event_date,
-        start_time: formatTime(d.start_time),
-        end_time: formatTime(d.end_time),
-        date_memo: d.date_memo,
+        eventDate: d.event_date,
+        startTime: formatTime(d.start_time),
+        endTime: formatTime(d.end_time),
+        dateMemo: d.date_memo,
       };
     }
 
@@ -36,33 +36,33 @@ export const parseDetailData = (data: EventDetail[]) => {
       isNullOrUndefined(users[d.user_id])
     ) {
       users[d.user_id] = {
-        user_id: d.user_id,
-        user_name: d.user_name,
-        user_memo: d.user_memo,
+        userId: d.user_id,
+        userName: d.user_name,
+        userMemo: d.user_memo,
       };
     }
 
     if (isNotNullOrUndefined(d.schedule_id)) {
       if (isNullOrUndefined(schedules[d.schedule_id])) {
         schedules[d.schedule_id] = {
-          schedule_id: d.schedule_id,
-          event_date: d.event_date,
-          user_id: d.user_id,
-          status_id: d.status_id,
+          scheduleId: d.schedule_id,
+          eventDate: d.event_date,
+          userId: d.user_id,
+          statusId: d.status_id,
           status: d.status,
-          schedule_time: [
+          scheduleTime: [
             {
-              schedule_time_id: d.schedule_time_id,
-              schedule_start_time: formatTime(d.schedule_start_time),
-              schedule_end_time: formatTime(d.schedule_end_time),
+              scheduleTimeId: d.schedule_time_id,
+              scheduleStartTime: formatTime(d.schedule_start_time),
+              scheduleEndTime: formatTime(d.schedule_end_time),
             },
           ],
         };
       } else {
         schedules[d.schedule_id].schedule_time.push({
-          schedule_time_id: d.schedule_time_id,
-          schedule_start_time: formatTime(d.schedule_start_time),
-          schedule_end_time: formatTime(d.schedule_end_time),
+          scheduleTimeId: d.schedule_time_id,
+          scheduleStartTime: formatTime(d.schedule_start_time),
+          scheduleEndTime: formatTime(d.schedule_end_time),
         });
       }
     }

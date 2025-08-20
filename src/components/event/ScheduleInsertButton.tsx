@@ -36,7 +36,7 @@ type ScheduleInsertButtonProps = {
 export type InsertScheduleType = {
   date: string;
   status: StatusId;
-  scheduleTime: { start_time: string | null; end_time: string | null }[];
+  scheduleTime: { startTime: string | null; endTime: string | null }[];
 };
 
 export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
@@ -45,9 +45,9 @@ export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
 }) => {
   const { event, dates } = data;
   const schedule: InsertScheduleType[] = dates.map((date) => ({
-    date: date.event_date,
+    date: date.eventDate,
     status: 3,
-    scheduleTime: [{ start_time: null, end_time: null }],
+    scheduleTime: [{ startTime: null, endTime: null }],
   }));
   const [isInsertSchedule, setIsInsertSchedule] = useState(false);
 
@@ -74,10 +74,10 @@ export const ScheduleInsertButton: FC<ScheduleInsertButtonProps> = ({
       {isInsertSchedule && (
         <Box marginTop={5}>
           <ScheduleForm
-            eventId={event.event_id}
+            eventId={event.eventId}
             schedule={schedule}
-            defaultStartTime={event.default_start_time}
-            defaultEndTime={event.default_end_time}
+            defaultStartTime={event.defaultStartTime}
+            defaultEndTime={event.defaultEndTime}
             mutate={mutate}
             onClose={() => setIsInsertSchedule(false)}
           />
@@ -202,7 +202,7 @@ const ScheduleForm: FC<ScheduleFormProps> = ({
 type ScheduleFormRowProps = {
   date: string;
   status: StatusId;
-  scheduleTime: { start_time: string | null; end_time: string | null }[];
+  scheduleTime: { startTime: string | null; endTime: string | null }[];
   setSchedule: (schedule: InsertScheduleType) => void;
   defaultStartTime: string;
   defaultEndTime: string;
@@ -220,25 +220,23 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
   const handleToggle = (_: MouseEvent<HTMLElement>, value: StatusId) => {
     const newScheduleTime =
       value === 3
-        ? [{ start_time: null, end_time: null }]
+        ? [{ startTime: null, endTime: null }]
         : value === 1
-        ? [{ start_time: defaultStartTime, end_time: defaultEndTime }]
+        ? [{ startTime: defaultStartTime, endTime: defaultEndTime }]
         : scheduleTime;
     setSchedule({ date, status: value, scheduleTime: newScheduleTime });
   };
 
   const handleAddTime = () => {
     if (scheduleTime.length >= 3) return;
-    if (
-      scheduleTime.some((t) => t.start_time === null || t.end_time === null)
-    ) {
+    if (scheduleTime.some((t) => t.startTime === null || t.endTime === null)) {
       setError("時間を入力してください");
       return;
     }
     setSchedule({
       date,
       status,
-      scheduleTime: [...scheduleTime, { start_time: null, end_time: null }],
+      scheduleTime: [...scheduleTime, { startTime: null, endTime: null }],
     });
     setError(null);
   };
@@ -309,14 +307,14 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
               return (
                 <RangeTimePicker
                   key={index}
-                  startTime={t.start_time ?? ""}
-                  endTime={t.end_time ?? ""}
+                  startTime={t.startTime ?? ""}
+                  endTime={t.endTime ?? ""}
                   setStartTime={(time) =>
                     setSchedule({
                       date,
                       status,
                       scheduleTime: scheduleTime.map((st, i) =>
-                        i === index ? { ...st, start_time: time } : st
+                        i === index ? { ...st, startTime: time } : st
                       ),
                     })
                   }
@@ -325,7 +323,7 @@ const ScheduleFormRow: FC<ScheduleFormRowProps> = ({
                       date,
                       status,
                       scheduleTime: scheduleTime.map((st, i) =>
-                        i === index ? { ...st, end_time: time } : st
+                        i === index ? { ...st, endTime: time } : st
                       ),
                     })
                   }

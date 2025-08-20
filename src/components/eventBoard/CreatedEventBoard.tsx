@@ -22,7 +22,7 @@ export const CreatedEventBoard = ({ currentEventid }: Props) => {
   const fetchUrl = useMemo(() => {
     const fetchUrlParams = new URLSearchParams();
     creatorIdList.forEach((creatorId) => {
-      fetchUrlParams.append("creator_id", creatorId);
+      fetchUrlParams.append("creatorId", creatorId);
     });
 
     return `${BASE_URL}events/created-events?${fetchUrlParams.toString()}`;
