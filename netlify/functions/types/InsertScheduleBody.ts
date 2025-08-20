@@ -1,6 +1,6 @@
 type scheduleTimeType = {
-  start_time: string;
-  end_time: string;
+  startTime: string;
+  endTime: string;
 };
 
 type scheduleType = {

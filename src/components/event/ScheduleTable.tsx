@@ -30,7 +30,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
             />
             {dates.map((date) => (
               <TableCell
-                key={date.event_date}
+                key={date.eventDate}
                 sx={{
                   textAlign: "center",
                   borderLeft: 1,
@@ -38,7 +38,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
                   borderColor: "grey.300",
                 }}
               >
-                {convertDate(date.event_date)}
+                {convertDate(date.eventDate)}
               </TableCell>
             ))}
             <TableCell sx={{ textAlign: "center" }} rowSpan={2}>
@@ -48,7 +48,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
           <TableRow>
             {dates.map((date) => (
               <TableCell
-                key={date.event_date}
+                key={date.eventDate}
                 sx={{
                   textAlign: "center",
                   borderLeft: 1,
@@ -57,7 +57,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
                 }}
               >
                 <Typography variant="body2" fontSize={12}>
-                  {date.date_memo ? date.date_memo : "-"}
+                  {date.dateMemo ? date.dateMemo : "-"}
                 </Typography>
               </TableCell>
             ))}
@@ -66,7 +66,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
         <TableBody>
           {users.map((user) => (
             <ScheduleTableRow
-              key={user.user_id}
+              key={user.userId}
               dates={dates}
               user={user}
               schedules={schedules}
@@ -80,7 +80,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
             />
             {dates.map((date) => (
               <TableCell
-                key={date.event_date}
+                key={date.eventDate}
                 sx={{
                   textAlign: "center",
                   borderLeft: 1,
@@ -90,7 +90,7 @@ export const ScheduleTable = ({ data }: ScheduleTableProps) => {
                 }}
               >
                 <Typography variant="body2" fontSize={12}>
-                  {summarize(schedules, date.event_date)}
+                  {summarize(schedules, date.eventDate)}
                 </Typography>
               </TableCell>
             ))}
@@ -109,9 +109,9 @@ const summarize = (schedules: ScheduleType[], date: string) => {
     3: 0,
   };
   schedules
-    .filter((s) => s.event_date === date)
+    .filter((s) => s.eventDate === date)
     .forEach((s) => {
-      result[s.status_id] += 1;
+      result[s.statusId] += 1;
     });
 
   return `◯:${result[1]} / △:${result[2]} / ×:${result[3]}`;

@@ -17,12 +17,12 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
   return (
     <TableRow>
       <TableCell sx={{ borderRight: 3, borderColor: "grey.300" }}>
-        {user.user_name}
+        {user.userName}
       </TableCell>
 
       {dates.map((date) => {
         const schedule = schedules.find(
-          (s) => s.event_date === date.event_date && s.user_id === user.user_id
+          (s) => s.eventDate === date.eventDate && s.userId === user.userId
         );
 
         return (
@@ -33,24 +33,24 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
               borderRight: 1,
               borderColor: "grey.300",
             }}
-            key={date.event_date}
+            key={date.eventDate}
           >
             {schedule &&
-              (schedule.status_id === 1 ? (
+              (schedule.statusId === 1 ? (
                 <PanoramaFishEye />
-              ) : schedule.status_id === 2 ? (
+              ) : schedule.statusId === 2 ? (
                 <>
-                  {schedule.schedule_time[0].schedule_start_time === null ? (
+                  {schedule.scheduleTime[0].scheduleStartTime === null ? (
                     <ChangeHistory />
                   ) : (
                     <Box>
-                      {schedule.schedule_time.map((times) => (
+                      {schedule.scheduleTime.map((times) => (
                         <Typography
-                          key={times.schedule_time_id}
+                          key={times.scheduleTimeId}
                           variant="body2"
                           fontSize={12}
                         >
-                          {`${times.schedule_start_time}〜${times.schedule_end_time}`}
+                          {`${times.scheduleStartTime}〜${times.scheduleEndTime}`}
                         </Typography>
                       ))}
                     </Box>
@@ -63,7 +63,7 @@ export const ScheduleTableRow: FC<ScheduleTableRowProp> = ({
         );
       })}
       <TableCell sx={{ textAlign: "center", whiteSpace: "pre-wrap" }}>
-        {user.user_memo ? user.user_memo : "-"}
+        {user.userMemo ? user.userMemo : "-"}
       </TableCell>
     </TableRow>
   );

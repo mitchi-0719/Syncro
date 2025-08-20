@@ -2,8 +2,8 @@ import { parseDetailData } from "../functions/parseDetailData";
 import { errorResponse } from "../util/errorResponse";
 import { supabase } from "../util/supabase";
 
-export const getDetail = async (event_id: string) => {
-  if (!event_id) {
+export const getDetail = async (eventId: string) => {
+  if (!eventId) {
     return errorResponse(400, "Bad Request: event_id is required");
   }
 
@@ -11,7 +11,7 @@ export const getDetail = async (event_id: string) => {
     const { data, error } = await supabase
       .from("event_detail")
       .select(`*`)
-      .eq("event_id", event_id);
+      .eq("event_id", eventId);
 
     if (error) {
       console.error("Supabase Query Error:", error);

@@ -12,33 +12,35 @@ app.use(`/.netlify/functions/events`, router);
 export const handler = serverless(app);
 
 router.get("/created-events", async (req: Request, res: Response) => {
-  const creator_ids = (req.query.creator_id as string[]) ?? [];
-  const results = await getCreateEventList(creator_ids);
+  const creatorIds = (req.query.creatorId as string[]) ?? [];
+  const results = await getCreateEventList(creatorIds);
   res.status(results.statusCode).json(results.body);
 });
 
-router.get("/:event_id", async (req: Request, res: Response) => {
-  const results = await getOverview(req.params.event_id);
+router.get("/:eventId", async (req: Request, res: Response) => {
+  const results = await getOverview(req.params.eventId);
   res.status(results.statusCode).json(results.body);
 });
 
-router.get("/:event_id/detail", async (req: Request, res: Response) => {
-  const results = await getDetail(req.params.event_id);
+router.get("/:eventId/detail", async (req: Request, res: Response) => {
+  const results = await getDetail(req.params.eventId);
   res.status(results.statusCode).json(results.body);
 });
 
 router.post("/", async (req: Request, res: Response) => {
+  console.log("Request Body:", req.body);
+  console.log("Request Headers:", req.headers);
   const results = await insertEvent(req.body);
   res.status(results.statusCode).json(results.body);
 });
 
-router.put("/:event_id", (req: Request, res: Response) => {
+router.put("/:eventId", (req: Request, res: Response) => {
   res.json({
     message: "Development discontinued",
   });
 });
 
-router.delete("/:event_id", (req: Request, res: Response) => {
+router.delete("/:eventId", (req: Request, res: Response) => {
   res.json({
     message: "Development discontinued",
   });

@@ -26,7 +26,7 @@ const isParticipable = (time: string, scheduleTime: ScheduleTimeType[]) => {
   if (
     scheduleTime.some(
       (_time) =>
-        _time.schedule_start_time === null || _time.schedule_end_time === null
+        _time.scheduleStartTime === null || _time.scheduleEndTime === null
     )
   ) {
     return statuses[1];
@@ -34,12 +34,12 @@ const isParticipable = (time: string, scheduleTime: ScheduleTimeType[]) => {
 
   const isParticipable = scheduleTime.some((_time) => {
     if (
-      isNullOrUndefined(_time.schedule_start_time) ||
-      isNullOrUndefined(_time.schedule_end_time)
+      isNullOrUndefined(_time.scheduleStartTime) ||
+      isNullOrUndefined(_time.scheduleEndTime)
     ) {
       return false;
     }
-    isInRangeTime(time, _time.schedule_start_time, _time.schedule_end_time);
+    isInRangeTime(time, _time.scheduleStartTime, _time.scheduleEndTime);
   });
 
   return isParticipable ? statuses[0] : statuses[1];
@@ -51,23 +51,23 @@ const getParticipantStatus = (
   date: string,
   time: string
 ) => {
-  const dates = schedules.filter((schedule) => schedule.event_date === date);
+  const dates = schedules.filter((schedule) => schedule.eventDate === date);
   const participantStatus: Record<number, string[]> = {
     [statuses[0]]: [],
     [statuses[1]]: [],
     [statuses[2]]: [],
   };
   dates.forEach((schedule) => {
-    const user = users.find((user) => user.user_id === schedule.user_id);
+    const user = users.find((user) => user.userId === schedule.userId);
     if (isNullOrUndefined(user)) {
       return;
     }
     const statusKey =
-      schedule.status_id !== statuses[1]
-        ? schedule.status_id
-        : isParticipable(time, schedule.schedule_time);
+      schedule.statusId !== statuses[1]
+        ? schedule.statusId
+        : isParticipable(time, schedule.scheduleTime);
     participantStatus[statusKey].push(
-      isNotNullOrUndefined(user.user_name) ? user.user_name : ""
+      isNotNullOrUndefined(user.userName) ? user.userName : ""
     );
   });
   return participantStatus;
@@ -116,15 +116,15 @@ export const scheduleSuggester = (
 ) => {
   const attendees = dates
     .flatMap((date) => {
-      const times = getTimeList(date.start_time, date.end_time);
+      const times = getTimeList(date.startTime, date.endTime);
       return times.map((time) => {
         return {
-          date: date.event_date,
+          date: date.eventDate,
           time,
           participantStatus: getParticipantStatus(
             schedules,
             users,
-            date.event_date,
+            date.eventDate,
             time
           ),
         };
